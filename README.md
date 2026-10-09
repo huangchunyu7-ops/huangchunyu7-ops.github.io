@@ -40,3 +40,6 @@
 ## 验证
 
 DOM 回归覆盖全部课程门槛、错误输入、显式确认、改答案后的失效、本机保存，以及管道/SQL/EPUB 处理。Playwright 验证桌面与手机翻页、阅读恢复、题目反馈和 Python 运行。账号模拟集成验证版本冲突、失败保留与笔记转义；真实 OAuth 和跨账户隔离应按配置教程完成验收。
+
+
+手机布局参考：Ionic Framework（https://github.com/ionic-team/ionic-framework）和 Konsta UI（https://github.com/konstaui/konsta）的底部导航、紧凑工具栏及安全区处理模式。本项目 mobile-ui.js / mobile-ui.css 为原创实现，未复制第三方组件代码。
