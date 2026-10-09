@@ -1,0 +1,150 @@
+{
+  "retrieved": "2026-10-09",
+  "japaneseVersion": "OpenJLPT 0.3.0",
+  "files": [
+    {
+      "url": "https://raw.githubusercontent.com/evanclan/OpenJLPT/main/data/json/kanji/n5.json",
+      "file": "data/japanese/kanji-n5.json",
+      "bytes": 46218,
+      "sha256": "c81458831e5e2e807ce0bb81a5af971d493ac8a9243701005eb57fe353990fce"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/evanclan/OpenJLPT/main/data/json/vocab/n5.json",
+      "file": "data/japanese/vocab-n5.json",
+      "bytes": 488242,
+      "sha256": "cbb221c9a3a92108fcd02fb088d9afacc70bc8c96570d5730425de0a49dad5f3"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/evanclan/OpenJLPT/main/data/json/vocab/n4.json",
+      "file": "data/japanese/vocab-n4.json",
+      "bytes": 483651,
+      "sha256": "b38512a6dc1e06a3615f377b3e58184c4a85b6f769c2e3f58f2a4ef0e1810927"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/evanclan/OpenJLPT/main/data/json/vocab/n1.json",
+      "file": "data/japanese/vocab-n1.json",
+      "bytes": 2156886,
+      "sha256": "09325eb676ec26044e9019afb5ddd460a394a0d8cb51b0b34d30d03124c131ff"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/evanclan/OpenJLPT/main/data/json/vocab/n3.json",
+      "file": "data/japanese/vocab-n3.json",
+      "bytes": 1306060,
+      "sha256": "17ca6bcbba9d212c3c9d38c38cecc2adef0fd8718cb7157bb48dd9d3a1724948"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/evanclan/OpenJLPT/main/data/json/vocab/n2.json",
+      "file": "data/japanese/vocab-n2.json",
+      "bytes": 1306964,
+      "sha256": "4c7053d1b61f71ca4004252cafdf89439c65531900e7bab6c53078802acf3c5b"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/evanclan/OpenJLPT/main/data/json/grammar/n5.json",
+      "file": "data/japanese/grammar-n5.json",
+      "bytes": 87774,
+      "sha256": "fb8151594263f5e98372adc51d4498578bc198e22259b161fba524eea2faa0bd"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/evanclan/OpenJLPT/main/data/json/kanji/n3.json",
+      "file": "data/japanese/kanji-n3.json",
+      "bytes": 201919,
+      "sha256": "c81669777f0ea37f848105babf8177ab36e968900307e5118b57e4156ed05fef"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/evanclan/OpenJLPT/main/data/json/kanji/n4.json",
+      "file": "data/japanese/kanji-n4.json",
+      "bytes": 87744,
+      "sha256": "a034d51bea0ee6c9ee1cc48b1cc83d9602641b9f5d38d99a55f5136f447a58d8"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/evanclan/OpenJLPT/main/data/json/grammar/n4.json",
+      "file": "data/japanese/grammar-n4.json",
+      "bytes": 120313,
+      "sha256": "7b388b8636ab7d9eaed02484d7d6be1c2468885f2354e28c02a29c2dfeb8d70d"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/evanclan/OpenJLPT/main/data/json/kanji/n2.json",
+      "file": "data/japanese/kanji-n2.json",
+      "bytes": 177767,
+      "sha256": "2e3bd6f9a26d8794aad2dd770b094836bc6c478950202d631e5fb9233e26cc85"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/evanclan/OpenJLPT/main/data/json/kanji/n1.json",
+      "file": "data/japanese/kanji-n1.json",
+      "bytes": 525772,
+      "sha256": "1814dd4fd4b363854fb861f091c2ca408bac01c96dddb6e9b3a5e2566069a79e"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/evanclan/OpenJLPT/main/NOTICE.md",
+      "file": "data/japanese/NOTICE.md",
+      "bytes": 3456,
+      "sha256": "a2e6f45517bb1a1c047628991832244916888a4ced3aa26adeafb89705588557"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/evanclan/OpenJLPT/main/data/json/meta.json",
+      "file": "data/japanese/meta.json",
+      "bytes": 951,
+      "sha256": "9d4cc0f17ed9ad6c3a1a10fdae19472f898f7b2a690c9962049657e49e2b64d2"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/evanclan/OpenJLPT/main/LICENSE",
+      "file": "data/japanese/LICENSE",
+      "bytes": 20138,
+      "sha256": "28a9529c7d0bb4dc51f4bf5c116a3d16ef247a052f7591466768ddf563fd1cf5"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/evanclan/OpenJLPT/main/data/json/grammar/n2.json",
+      "file": "data/japanese/grammar-n2.json",
+      "bytes": 173687,
+      "sha256": "fc7a26fd991b80505480ca64f3fce03014a3f91f921045b9fb14bc63a31f3f95"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/evanclan/OpenJLPT/main/data/json/grammar/n1.json",
+      "file": "data/japanese/grammar-n1.json",
+      "bytes": 202825,
+      "sha256": "b6df1691cf9441f044b18490e25eef02a5c93ad9c0d0d69d62eb889256e6708b"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/evanclan/OpenJLPT/main/data/json/grammar/n3.json",
+      "file": "data/japanese/grammar-n3.json",
+      "bytes": 147911,
+      "sha256": "a94fed69f213a0896a06e62d47c81b870c570ebc0ae5f01b971780f844a7b295"
+    },
+    {
+      "url": "https://www.gutenberg.org/ebooks/11.epub3.images",
+      "file": "books/alice.epub",
+      "bytes": 189249,
+      "sha256": "4f81245d31380ac1d6eafb9a321e3691369bc70985736ae4bccf849a4f784036"
+    },
+    {
+      "url": "https://www.gutenberg.org/ebooks/25332.epub3.images",
+      "file": "books/a-q.epub",
+      "bytes": 101741,
+      "sha256": "5dcf5341be4b59461f61854c023ddcc38af52655dd8e60bed99bbec241545125"
+    },
+    {
+      "url": "https://www.gutenberg.org/ebooks/1661.epub3.images",
+      "file": "books/sherlock.epub",
+      "bytes": 379503,
+      "sha256": "310ddf29f2b98b870b0e970061d236c9ce7c65163e0e172c254a1db3d070d3f4"
+    },
+    {
+      "url": "https://www.gutenberg.org/ebooks/24264.epub3.images",
+      "file": "books/red-chamber.epub",
+      "bytes": 1228135,
+      "sha256": "b22f646c96d4d76f5a59e31002706d79fff5109469d7b010170363cbe5c80820"
+    },
+    {
+      "url": "https://www.gutenberg.org/ebooks/23962.epub3.images",
+      "file": "books/journey-west.epub",
+      "bytes": 1096086,
+      "sha256": "b63314c3575ff3df6cd3e327eb9abfcf2e62e538dfe910fca65bce9baef4dac5"
+    },
+    {
+      "url": "https://www.gutenberg.org/ebooks/1342.epub.noimages",
+      "file": "books/pride-prejudice.epub",
+      "bytes": 561102,
+      "sha256": "e59e587472723023b21bf380b8327858e7540b25e57affa3a68935b291e370dc"
+    }
+  ]
+}

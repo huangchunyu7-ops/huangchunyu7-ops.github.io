@@ -1,0 +1,5 @@
+/vendor/pyodide/*.mjs
+  Content-Type: text/javascript
+
+/vendor/pyodide/*.wasm
+  Content-Type: application/wasm

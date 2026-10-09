@@ -1,0 +1,14 @@
+const assert=require('node:assert/strict');const {harness}=require('./hub.cjs');const {q}=harness();
+assert.equal(q("hubCurriculum.opswork[0].id"),'cmd-start-identity');
+const good=['grep -F ERROR /opt/order/logs/app.log | wc -l','cat /opt/order/logs/app.log|grep "ERROR"|wc --lines','grep -cF ERROR /opt/order/logs/app.log','grep -ci error /opt/order/logs/app.log','grep -n ERROR /opt/order/logs/app.log | wc -l'];
+const bad=['echo 2','grep ERROR /home/student/app.log | wc -l','grep -F error /opt/order/logs/app.log | wc -l','cat /opt/order/logs/app.log | wc -l','grep -F ERROR /opt/order/logs/app.log | wc -5','grep -F ERROR /opt/order/logs/app.log | wc -l extra','cat /opt/order/logs/app.log; echo 2'];
+for(const raw of good)assert(q(`evaluateHubTask(hubCurriculum.opswork.find(c=>c.id==='pipe').tasks[0],${JSON.stringify(raw)},new JobEngine()).ok`),raw);
+for(const raw of bad)assert(!q(`evaluateHubTask(hubCurriculum.opswork.find(c=>c.id==='pipe').tasks[0],${JSON.stringify(raw)},new JobEngine()).ok`),raw);
+assert(q(`new JobEngine().execute('wc -5 /opt/order/logs/app.log').out.includes('小写字母 L')`));
+assert(q(`commandEquivalent('cat ./notes.txt','cat /home/student/notes.txt',new JobEngine())`));
+assert(!q(`commandEquivalent('cat /home/student/app.log','cat /home/student/notes.txt',new JobEngine())`));
+assert(q(`new JobEngine().execute("SELECT OWNER, TABLE_NAME FROM ALL_TABLES WHERE OWNER = 'APP'").ok`));
+assert(q(`annotatedCommand('grep -F ERROR app.log | wc -l').includes('字面')`));
+assert(q(`explainSelection('print(42)').includes('显示')`));
+assert(q(`explainSelection('不在词典里的内容')===null`));
+console.log('command alternatives preserve intent; wrong paths, filters, counts and command chaining blocked; SQL quotes intact; fragment explanations passed');

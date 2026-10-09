@@ -1,0 +1,13 @@
+Supabase JS SDK 2.117.3, bundled locally.
+Source: https://github.com/supabase/supabase-js
+Rebuild: deployment/supabase-entry.js with esbuild.
+@supabase/auth-js 2.117.3: MIT
+@supabase/functions-js 2.117.3: MIT
+@supabase/phoenix 0.4.5: MIT
+@supabase/postgrest-js 2.117.3: MIT
+@supabase/realtime-js 2.117.3: MIT
+@supabase/storage-js 2.117.3: MIT
+@supabase/supabase-js 2.117.3: MIT
+iceberg-js 0.8.1: MIT
+tslib 2.8.1: 0BSD
+Licenses are in supabase-legal/.

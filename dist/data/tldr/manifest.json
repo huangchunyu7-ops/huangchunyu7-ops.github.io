@@ -1,0 +1,61 @@
+{
+  "revision": "a6d7e30cec473d5839c0d74654fbe5fffa60020b",
+  "download_date": "2026-10-09",
+  "files": [
+    {
+      "file": "pwd.md",
+      "source": "https://raw.githubusercontent.com/tldr-pages/tldr/a6d7e30cec473d5839c0d74654fbe5fffa60020b/pages/common/pwd.md",
+      "sha256": "a701198670f4e6e18b4dfa8ec7e17843c0b5718f3a39bc26fb360b0644a2b363"
+    },
+    {
+      "file": "ls.md",
+      "source": "https://raw.githubusercontent.com/tldr-pages/tldr/a6d7e30cec473d5839c0d74654fbe5fffa60020b/pages/common/ls.md",
+      "sha256": "395310868c4285d93a087111cf3f274c98a22e2662728d5ff205dac83a5cc1c1"
+    },
+    {
+      "file": "cat.md",
+      "source": "https://raw.githubusercontent.com/tldr-pages/tldr/a6d7e30cec473d5839c0d74654fbe5fffa60020b/pages/common/cat.md",
+      "sha256": "db25e6c94318558a3fc929b953eefe98cb2d75bb320dc6a9e36539c15e35a008"
+    },
+    {
+      "file": "grep.md",
+      "source": "https://raw.githubusercontent.com/tldr-pages/tldr/a6d7e30cec473d5839c0d74654fbe5fffa60020b/pages/common/grep.md",
+      "sha256": "52d86623fb673a28c25fc775fdfaa4b4776031ff5db53f3ab2ae220d90b74916"
+    },
+    {
+      "file": "head.md",
+      "source": "https://raw.githubusercontent.com/tldr-pages/tldr/a6d7e30cec473d5839c0d74654fbe5fffa60020b/pages/linux/head.md",
+      "sha256": "d00383d66fcaebbb1b95196e8bf4fb869fade7bf36d04d9cfe3fe43aa6adff5f"
+    },
+    {
+      "file": "tail.md",
+      "source": "https://raw.githubusercontent.com/tldr-pages/tldr/a6d7e30cec473d5839c0d74654fbe5fffa60020b/pages/common/tail.md",
+      "sha256": "b208bcdcfdd66475cb10dcc10e568dcd66ccca2d1f9d2f5eb6fad27b7c84e40d"
+    },
+    {
+      "file": "wc.md",
+      "source": "https://raw.githubusercontent.com/tldr-pages/tldr/a6d7e30cec473d5839c0d74654fbe5fffa60020b/pages/common/wc.md",
+      "sha256": "97c17362b5ccfaea4084384f44e827bcae39b9abfcdcf4ef32b77a0059d3d5a3"
+    },
+    {
+      "file": "sort.md",
+      "source": "https://raw.githubusercontent.com/tldr-pages/tldr/a6d7e30cec473d5839c0d74654fbe5fffa60020b/pages/common/sort.md",
+      "sha256": "bbc4e37bdef48f92c9ff57c641f0040821445d82bf9abc89232a4e6b2f5f9d4a"
+    },
+    {
+      "file": "uniq.md",
+      "source": "https://raw.githubusercontent.com/tldr-pages/tldr/a6d7e30cec473d5839c0d74654fbe5fffa60020b/pages/common/uniq.md",
+      "sha256": "09952e52098a315af12499e79c38f699213871a249218876ddbc58fbbfc55e8a"
+    },
+    {
+      "file": "git.md",
+      "source": "https://raw.githubusercontent.com/tldr-pages/tldr/a6d7e30cec473d5839c0d74654fbe5fffa60020b/pages/common/git.md",
+      "sha256": "5cc833305da2df33386f2085fa907385d5d29d82d8f7f2dc87476d760c9e5b25"
+    },
+    {
+      "file": "jq.md",
+      "source": "https://raw.githubusercontent.com/tldr-pages/tldr/a6d7e30cec473d5839c0d74654fbe5fffa60020b/pages/common/jq.md",
+      "sha256": "763483dfe784a6b744565c2f25c912a9c2ef940c1bfbd38cf742768f9237e400"
+    }
+  ]
+}
