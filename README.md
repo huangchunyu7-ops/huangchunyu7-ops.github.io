@@ -43,3 +43,8 @@ DOM 回归覆盖全部课程门槛、错误输入、显式确认、改答案后�
 
 
 手机布局参考：Ionic Framework（https://github.com/ionic-team/ionic-framework）和 Konsta UI（https://github.com/konstaui/konsta）的底部导航、紧凑工具栏及安全区处理模式。本项目 mobile-ui.js / mobile-ui.css 为原创实现，未复制第三方组件代码。
+
+
+2026-10-10 手机阅读改版：统一 SVG 图标、贴底导航、安全区、手机字体与点击区域；书架每页显示 6 本。内置可直接阅读的 EPUB 增至 18 本，其中新增中文文学 5 本、英文幻想 4 本、青空文库日文幻想/短篇 3 本。出处见 dist/books/NOTICE.md；外部代码许可不替代正文许可。
+
+B站项目线索： https://www.bilibili.com/video/BV1b4421A7ns/ （对应 https://github.com/ShqWW/bilinovel-download ）；轻阅读 https://github.com/toiilf/qingread ，其项目说明链接 B站教程。审查发现它们提供下载/书源/阅读器能力，未确认其现代轻小说正文可公开转载，本项目未调用未获授权的小说抓取接口。
