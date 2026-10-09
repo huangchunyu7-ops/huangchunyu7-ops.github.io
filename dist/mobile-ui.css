@@ -12,3 +12,5 @@ html{scroll-padding-bottom:150px}body{background:#f1f5f7;font-family:-apple-syst
 @media(max-width:700px){.reading-pager{position:static;margin-top:8px}.hub-main:has(.reading-sheet){padding-bottom:32px!important}}
 
 @media(max-width:700px){.reading-sheet{min-height:120px}.hub-main .section{animation:none}}
+
+@media(max-width:700px){.reader-tools label{min-width:0;max-width:100%}.reader-tools select,.reader-tools input{width:100%;min-width:0;max-width:100%!important}.reader-tools label:has(#reader-chapter){flex-basis:100%}}
