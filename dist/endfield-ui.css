@@ -52,7 +52,7 @@ body.endfield-learning .flow-cue :is(strong,span,p){color:var(--ef-ink);font-siz
 body.endfield-learning .learning-tabs{background:transparent;border:0;border-bottom:1px solid var(--ef-rule);padding:0;margin:24px 0}
 body.endfield-learning .learning-tabs button{clip-path:none;background:transparent;color:var(--ef-ink-2);border:0;border-bottom:3px solid transparent;padding:14px 12px}
 body.endfield-learning .learning-tabs :is(button[aria-selected=true],button.active){background:var(--ef-ink);color:var(--ef-panel);border-bottom-color:var(--ef-ink)}
-body.endfield-learning .hub-lesson-grid.paged-lesson-grid .lesson-text{padding:24px 32px;border:1px solid var(--ef-rule);max-width:820px;margin:auto}
+body.endfield-learning .hub-lesson-grid.paged-lesson-grid .lesson-text{padding:24px 32px;border:1px solid var(--ef-rule);max-width:820px;margin:auto;background:var(--ef-panel);color:var(--ef-ink)}
 body.endfield-learning .reading-page-top{border-color:var(--ef-rule);padding-bottom:16px;font-size:12px;letter-spacing:0}
 body.endfield-learning .reading-sheet{padding:24px 0;min-height:220px}
 body.endfield-learning .reading-sheet h2{font-size:26px;line-height:1.55;max-width:640px}

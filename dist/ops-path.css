@@ -1,0 +1,10 @@
+.ops-path-start{display:grid;grid-template-columns:1.2fr 1fr;gap:36px;border-block:1px solid var(--ef-rule);padding:28px 0;margin:24px 0}
+.ops-path-start h2{font-size:24px}.ops-path-start p{max-width:38em}
+.ops-path-intro>summary{min-height:44px;box-sizing:border-box}
+.ops-path-main .path-number{white-space:nowrap;overflow-wrap:normal;word-break:normal}
+.ops-path-map{border-bottom:1px solid var(--ef-rule);padding:16px 0;margin-bottom:28px}.ops-path-map summary{font-weight:700;cursor:pointer}
+.ops-path-map ol{list-style:none;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;padding:24px 0 0}
+.ops-path-map li{min-width:0}.ops-path-map button{width:100%;display:flex;gap:12px;text-align:left;align-items:center}.ops-path-map button b{flex:1}.ops-path-map button small{white-space:nowrap;color:inherit!important}.ops-path-map li p{font-size:14px;line-height:1.8;margin:10px 0}
+.ops-path-controls{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin:24px 0}.ops-path-controls label{display:block;font-size:14px;font-weight:700}.ops-path-controls select,.ops-path-controls input{display:block;width:100%;min-height:46px;margin-top:8px;font:inherit;background:var(--ef-panel);color:var(--ef-ink);border:1px solid var(--ef-rule);padding:10px 12px;box-sizing:border-box;border-radius:0}
+.ops-path-controls form>div{display:flex;align-items:end;gap:8px}.ops-path-controls input{min-width:0}.ops-path-controls button{min-height:46px;flex-shrink:0}.ops-stage-heading{padding:18px 0}.ops-stage-heading h2{margin:8px 0;font-size:28px}.ops-path-references{margin-top:32px;padding-top:20px;border-top:1px solid var(--ef-rule)}
+@media(max-width:650px){.ops-path-start{grid-template-columns:1fr;gap:24px;padding:22px 0}.ops-path-start>div+div{border-top:1px solid var(--ef-rule);padding-top:20px}.ops-path-start h2{font-size:21px}.ops-path-main .page-head h1{font-size:28px}.ops-path-map ol{grid-template-columns:1fr;gap:12px}.ops-path-controls{grid-template-columns:1fr;gap:18px}.ops-stage-heading h2{font-size:24px}.ops-path-main .path-card{overflow-wrap:anywhere}}
