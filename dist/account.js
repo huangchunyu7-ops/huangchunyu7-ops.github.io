@@ -1,5 +1,5 @@
 /* Supabase Auth + revision-checked cloud snapshots; no passwords on this page. */
-const learningStorageKeys=['ops-learning-v1','learning-hub-v1','learning-python-v1','reading-pages-v1','learning-resume-v1','ops-incidents-v1','learning-reader-v1'];
+const learningStorageKeys=['ops-learning-v1','learning-hub-v1','learning-python-v1','reading-pages-v1','learning-resume-v1','ops-incidents-v1','learning-reader-v1','learning-japanese-v1'];
 let accountApplying=false,accountClient=null,accountUser=null,accountReady=false,accountRevision=0,accountDirty=false,accountConflict=false,accountSyncing=false,accountEpoch=0,accountTimer=null,accountStatus='未登录，进度保存在本机。',accountNotes=[],accountNoteId=null,accountNoteDraft={title:'',content:''};
 function localSnapshot(){return Object.fromEntries(learningStorageKeys.map(k=>[k,localStorage.getItem(k)]));}
 function storeAccountMeta(){localStorage.setItem('learning-account-meta',JSON.stringify({user:accountUser?.id,revision:accountRevision,dirty:accountDirty}));}

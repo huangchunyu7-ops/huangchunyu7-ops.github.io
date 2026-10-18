@@ -1,0 +1,221 @@
+/* Independent Japanese reading/recall workspace; uses the shared Endfield tokens. */
+@font-face{font-family:'Noto Sans JP';src:url('vendor/fonts/noto-sans-jp.woff2') format('woff2');font-weight:100 900;font-display:swap}
+body.endfield-learning .jp-main{max-width:1160px;padding-top:20px}
+.jp-navigation{display:flex;gap:6px;flex-wrap:wrap;padding:0 0 20px;border-bottom:1px solid var(--ef-rule);margin-bottom:28px}
+.jp-page-head{display:flex;justify-content:space-between;align-items:center;gap:20px;margin:24px 0}
+body.endfield-learning .jp-page-head h1{margin:8px 0;font-size:34px}
+.jp-dashboard{display:grid;grid-template-columns:1.4fr 1fr;gap:32px;margin:28px 0}
+.jp-plan{background:var(--ef-panel);border-top:4px solid var(--ef-ink);padding:28px}
+.jp-plan h2{font-size:26px;margin:12px 0}
+.jp-plan-stats{display:flex;gap:30px;padding:22px 0;margin:18px 0;border-block:1px solid var(--ef-rule)}
+.jp-plan-stats div{flex:1;min-width:0}
+.jp-plan-stats b{display:block;font:700 36px/1.4 var(--ef-font-ui);font-variant-numeric:tabular-nums}
+.jp-plan-stats small{font-size:14px;font-weight:400}
+.jp-plan-stats span{font-size:12px;color:var(--ef-ink-2)}
+.jp-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+.jp-onboarding{padding:24px 0;border-top:1px solid var(--ef-ink)}
+.jp-onboarding ol{padding-left:22px;line-height:2}
+.jp-onboarding li{margin:12px 0}
+.jp-plan-settings{margin-top:22px;border-top:1px solid var(--ef-rule);padding-top:12px}
+.jp-plan-settings label{display:inline-flex;flex-direction:column;gap:8px;margin:16px 20px 8px 0;font-size:13px}
+.jp-main select{padding:10px 14px;min-height:44px}
+.jp-section{padding:28px 0;border-top:1px solid var(--ef-rule);margin-top:28px}
+.jp-section-head{display:flex;justify-content:space-between;gap:16px;align-items:center;flex-wrap:wrap;margin:20px 0}
+.jp-section-head h2{margin:0}
+.jp-book-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin:24px 0}
+body.endfield-learning .jp-book{text-align:left;background:var(--ef-panel);color:var(--ef-ink);padding:24px;border-top:3px solid var(--ef-ink);min-width:0}
+.jp-book-level{display:block;font:800 42px/1.4 var(--ef-font-ui);font-stretch:125%}
+.jp-book h3{font-size:20px;margin:14px 0}
+body.endfield-learning .jp-book p{font-size:12px;line-height:1.7}
+.jp-book>span:last-child{font-size:12px;font-weight:400}
+.jp-word-list{border-top:1px solid var(--ef-rule)}
+body.endfield-learning .jp-word-row{display:grid;grid-template-columns:1fr 1.4fr 100px;align-items:center;gap:22px;width:100%;text-align:left;border-bottom:1px solid var(--ef-rule);background:transparent;clip-path:none;padding:18px 12px}
+.jp-word-row b{display:block;font-size:23px;font-weight:500}
+.jp-word-row small{display:block;font-size:12px;font-weight:400;margin-top:5px}
+.jp-word-row>small{text-align:right;align-self:start}
+.jp-detail-layout{display:grid;grid-template-columns:minmax(0,1.7fr) minmax(250px,1fr);gap:44px;align-items:start}
+.jp-word-detail,.jp-flashcard{padding:30px;background:var(--ef-panel);border-top:4px solid var(--ef-ink)}
+.jp-word-title{padding:10px 0 24px;border-bottom:1px solid var(--ef-rule)}
+body.endfield-learning .jp-word-title h2{font-size:56px;line-height:1.4;margin:16px 0 4px;font-weight:600}
+body.endfield-learning .jp-word-title .jp-reading{font-size:22px;margin:0 0 16px;line-height:1.8}
+.jp-word-meaning,.jp-example,.jp-usage{padding:24px 0;border-bottom:1px solid var(--ef-rule)}
+.jp-pos{font-size:12px;background:var(--ef-chip);padding:5px 8px}
+.jp-example p[lang=ja]{font-size:22px!important;color:var(--ef-ink)!important}
+.jp-word-tools{padding:24px 0;border-top:1px solid var(--ef-rule)}
+.jp-word-tools label{display:block;font-size:13px;margin:12px 0}
+.jp-word-tools textarea{margin:14px 0!important}
+.jp-word-tools .primary{width:100%}
+.jp-session-progress{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--ef-rule);padding-bottom:14px;font-size:12px}
+.jp-session-progress button{font-size:12px!important}
+.jp-flashcard{max-width:780px;margin:auto}
+.jp-recall{text-align:center;padding:35px 0}
+body.endfield-learning .jp-recall h2{font-size:72px;font-weight:600;margin:35px 0}
+.jp-recall>.primary{display:block;margin:35px auto 0;min-width:230px}
+.jp-recall-ratings{padding:24px 0 0}
+.jp-recall-ratings .jp-actions>*{flex:1;min-height:50px}
+.jp-answer-feedback{padding:22px;margin-top:24px;border-left:4px solid var(--ef-ink);background:var(--ef-chip)}
+.jp-answer-feedback h3{margin-top:0}
+.jp-session-summary{padding:40px 0}
+.jp-session-summary>b{font:800 88px/1.2 var(--ef-font-ui)}
+.jp-session-summary p{max-width:600px}
+.jp-speech-note{padding:18px 0;max-width:780px;margin:20px auto}
+.jp-course-filters{display:flex;gap:20px;flex-wrap:wrap;margin:24px 0}
+.jp-course-filters label{display:flex;flex-direction:column;gap:8px;font-size:13px}
+.jp-course-list{border-top:1px solid var(--ef-rule)}
+body.endfield-learning .jp-course-row{display:grid;grid-template-columns:80px 1fr 90px;align-items:center;width:100%;gap:20px;text-align:left;background:transparent;border-bottom:1px solid var(--ef-rule);padding:22px 12px;clip-path:none}
+.jp-course-row b{font-size:21px;display:block}
+.jp-course-row small{display:block;font-size:12px;margin-top:5px;font-weight:400}
+.jp-course-row>small{text-align:right}
+.jp-lesson-meta{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;border-bottom:1px solid var(--ef-rule);padding-bottom:20px;font-size:12px}
+.jp-lesson-sheet{max-width:780px;margin:28px auto;background:var(--ef-panel);padding:30px}
+.jp-lesson-sheet>p{font-size:17px!important;line-height:2!important;color:var(--ef-ink)!important}
+.jp-lesson-sheet h2{font-size:26px}
+.jp-lesson-example{background:var(--ef-chip);padding:18px;margin:24px 0}
+.jp-lesson-example pre{font-family:var(--ef-font-text);font-size:20px;line-height:2;white-space:pre-wrap;overflow-wrap:anywhere;margin:0}
+.jp-lesson-check{margin-top:30px;border-top:1px solid var(--ef-rule);padding-top:24px}
+.jp-lesson-check fieldset{padding:0;border:0}
+.jp-lesson-check legend{font-size:18px;font-weight:600;color:var(--ef-ink)}
+.jp-lesson-check .hub-option span{font-size:15px}
+.jp-lesson-pager{max-width:780px;margin:0 auto!important;position:static!important;background:transparent!important}
+.jp-review-summary{padding:24px 0}
+.jp-schedule-row{display:flex;justify-content:space-between;align-items:center;gap:18px;border-bottom:1px solid var(--ef-rule);padding:12px 0}
+.jp-schedule-row>span{font-size:13px;white-space:nowrap}
+.jp-empty{padding:20px 0;color:var(--ef-ink-2)}
+.jp-search-form{display:flex;align-items:end;gap:16px;margin:24px 0 30px}
+.jp-search-form label{flex:1;min-width:0;font-size:13px}
+.jp-search-form input{display:block;width:100%;padding:13px;margin-top:10px;min-height:48px}
+.jp-dictionary-entry{padding:22px 0;border-bottom:1px solid var(--ef-rule)}
+.jp-dictionary-entry h3{font-size:26px;font-weight:500}
+.jp-dictionary-entry small{font-size:15px;margin-left:12px}
+.jp-main [lang=ja]{font-family:'Noto Sans JP','Noto Sans SC','Hiragino Kaku Gothic ProN','Yu Gothic',sans-serif;font-weight:400;overflow-wrap:anywhere}
+.jp-main ruby{ruby-position:over;line-height:2.4}
+.jp-main rt{font-size:.55em}
+.jp-top-links{display:flex;align-items:center;gap:8px;flex-wrap:wrap;border-bottom:1px solid var(--ef-rule);padding-bottom:16px;margin-bottom:24px}
+.jp-all-modules{position:relative;margin-left:auto}
+.jp-all-modules>summary{padding:12px 16px;font-size:13px;cursor:pointer;min-height:44px}
+.jp-module-menu{position:absolute;right:0;top:100%;width:360px;max-width:calc(100vw - 32px);display:grid;grid-template-columns:1fr 1fr;gap:8px;background:var(--ef-panel);border:1px solid var(--ef-ink);padding:16px;z-index:30}
+.jp-module-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin:24px 0}
+body.endfield-learning .jp-module-card{text-align:left;background:var(--ef-panel);padding:24px;border-top:3px solid var(--ef-ink);color:var(--ef-ink)}
+.jp-module-card h3{font-size:21px;margin:12px 0}
+.jp-module-card small{font-family:var(--ef-font-ui);font-size:18px;color:var(--ef-ink)}
+.jp-module-card p{font-size:13px!important;font-weight:400}
+.jp-reading-choices{display:flex;gap:8px;flex-wrap:wrap}
+.jp-reading-article,.jp-exam-sheet,.jp-dialogue{padding:30px;background:var(--ef-panel);margin:28px 0}
+.jp-passage{font-size:23px;line-height:2.8;margin:30px 0;color:var(--ef-ink)}
+body.endfield-learning .jp-inline-word{display:inline;background:transparent;clip-path:none;min-height:0;font:inherit;padding:0 1px;font-weight:400;border-bottom:1px dotted var(--ef-ink-2);vertical-align:baseline}
+.jp-inline-word ruby{line-height:2.8}
+.jp-reading-translation{padding:20px;background:var(--ef-chip)}
+.jp-reading-article fieldset,.jp-exam-sheet fieldset,.jp-dialogue fieldset{border:0;padding:0;margin:28px 0 18px}
+.jp-reading-article legend,.jp-exam-sheet legend,.jp-dialogue legend{font-size:18px;line-height:1.8;color:var(--ef-ink)}
+.jp-kana-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:9px;margin:24px 0;max-width:760px}
+.jp-kana-grid button{padding:12px 5px!important;min-height:70px!important}
+.jp-kana-grid b{display:block;font-size:28px;font-weight:500}
+.jp-kana-grid small{display:block;font-size:12px;color:inherit;margin-top:4px}
+.jp-main .jp-kana-grid button[aria-current="page"] small{color:#171717!important}
+.jp-kana-selected{border-top:1px solid var(--ef-rule);padding:22px 0;display:flex;gap:22px;flex-wrap:wrap;align-items:center}
+.jp-kana-selected>b{font-size:60px;font-weight:400}
+.jp-kana-selected>span{font-size:15px}
+.jp-kana-selected>p{width:100%}
+.jp-writing-tools{display:flex;gap:24px;align-items:start;flex-wrap:wrap;margin:24px 0}
+.jp-writing-tools img,.jp-writing-tools canvas{width:min(320px,100%);aspect-ratio:1;background:white;border:1px solid var(--ef-rule)}
+.jp-writing-tools canvas{touch-action:none;background:var(--ef-panel);background-image:linear-gradient(90deg,transparent calc(50% - .5px),var(--ef-rule) calc(50% - .5px),var(--ef-rule) calc(50% + .5px),transparent calc(50% + .5px)),linear-gradient(transparent calc(50% - .5px),var(--ef-rule) calc(50% - .5px),var(--ef-rule) calc(50% + .5px),transparent calc(50% + .5px));cursor:crosshair}
+.jp-dialogue article{padding:24px 0;border-block:1px solid var(--ef-rule);margin:24px 0}
+.jp-dialogue article p[lang=ja]{font-size:23px;color:var(--ef-ink)}
+.jp-workbench-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:36px}
+.jp-workbench-grid>section{border-top:1px solid var(--ef-rule);padding:24px 0}
+.jp-workbench-grid input[type=file]{display:block;margin:20px 0;width:100%;font-size:14px!important;padding:12px}
+.jp-resource-links{padding-left:22px}
+.jp-resource-links li{margin:20px 0;line-height:1.9}
+.jp-resource-links p{font-size:13px!important;margin-top:6px}
+.jp-native-audio{padding:20px 0;border-bottom:1px solid var(--ef-rule)}
+.jp-main audio{display:block;width:100%;max-width:600px;margin:18px 0}
+.jp-main input[type=file]{max-width:100%}
+@media(max-width:700px){
+ .jp-top-links{gap:4px;padding-bottom:12px;margin-bottom:20px}
+ body.endfield-learning .jp-top-links>.text-button{font-size:12px;padding:10px 7px}
+ .jp-all-modules>summary{padding:11px 5px;font-size:12px}
+ .jp-module-menu{width:300px;padding:12px;gap:6px}
+ body.endfield-learning .jp-module-menu button{font-size:12px;padding:12px 7px;min-height:48px}
+ .jp-module-grid{grid-template-columns:1fr 1fr;gap:12px}
+ body.endfield-learning .jp-module-card{padding:18px 14px}
+ .jp-module-card h3{font-size:18px}
+ .jp-module-card p{font-size:12px!important}
+ .jp-reading-choices button{font-size:12px!important;min-height:44px!important}
+ .jp-reading-article,.jp-exam-sheet,.jp-dialogue{padding:22px 16px}
+ .jp-passage{font-size:20px;line-height:2.7}
+ .jp-kana-grid{grid-template-columns:repeat(5,minmax(0,1fr));gap:8px}
+ .jp-kana-grid b{font-size:28px}
+ .jp-kana-selected{gap:16px}
+ .jp-kana-selected>span{font-size:13px}
+ .jp-writing-tools img,.jp-writing-tools canvas{max-width:100%;width:100%}
+ .jp-workbench-grid{grid-template-columns:1fr;gap:20px}
+ .jp-dialogue article p[lang=ja]{font-size:21px}
+ body.endfield-learning .jp-main{padding-top:14px!important}
+ .jp-navigation{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;padding-bottom:16px;margin-bottom:22px}
+ body.endfield-learning .jp-navigation button{font-size:12px;padding:10px 5px;min-height:44px}
+ .jp-page-head{display:block;margin:20px 0}
+ body.endfield-learning .jp-page-head h1{font-size:27px;line-height:1.6;margin:8px 0 12px}
+ .jp-page-head>.text-button{padding:8px 0;font-size:12px}
+ .jp-dashboard{grid-template-columns:1fr;gap:26px;margin:24px 0}
+ .jp-plan{padding:20px 16px}
+ .jp-plan h2{font-size:23px}
+ .jp-plan p{font-size:14px!important}
+ .jp-plan-stats{gap:14px;padding:18px 0}
+ .jp-plan-stats b{font-size:32px}
+ .jp-plan-stats small{font-size:12px}
+ .jp-plan-stats span{font-size:11px}
+ .jp-onboarding{padding:20px 0}
+ .jp-onboarding ol{font-size:14px}
+ .jp-actions>*{flex:1}
+ .jp-plan-settings label{width:calc(50% - 16px);margin-right:12px}
+ .jp-plan-settings select{min-width:0;width:100%;font-size:16px}
+ .jp-book-grid{grid-template-columns:1fr 1fr;gap:12px;margin:20px 0}
+ body.endfield-learning .jp-book{padding:18px 14px}
+ .jp-book-level{font-size:34px}
+ .jp-book h3{font-size:18px;margin:10px 0}
+ body.endfield-learning .jp-book p{font-size:11px!important;line-height:1.8}
+ .jp-book>span:last-child{font-size:11px}
+ .jp-section-head{align-items:start}
+ .jp-section-head h2{font-size:22px}
+ body.endfield-learning .jp-word-row{grid-template-columns:1fr 1fr;gap:12px;padding:16px 2px}
+ .jp-word-row b{font-size:24px}
+ .jp-word-row>span:nth-child(2){font-size:14px;font-weight:400}
+ .jp-word-row>small{grid-column:1/-1;text-align:left;font-size:11px}
+ .jp-detail-layout{grid-template-columns:1fr;gap:24px}
+ .jp-word-detail,.jp-flashcard{padding:20px 16px}
+ body.endfield-learning .jp-word-title h2{font-size:48px}
+ body.endfield-learning .jp-word-title .jp-reading{font-size:21px}
+ .jp-example p[lang=ja]{font-size:21px!important}
+ .jp-word-tools{padding-top:20px}
+ .jp-word-tools>button{margin:8px 0}
+ .jp-recall{padding:24px 0}
+ body.endfield-learning .jp-recall h2{font-size:60px;margin:30px 0}
+ .jp-recall>.primary{min-width:0;width:100%}
+ .jp-session-progress{gap:8px}
+ .jp-session-progress>span{font-size:11px}
+ .jp-recall-ratings .jp-actions{gap:6px}
+ body.endfield-learning .jp-recall-ratings button{font-size:12px;padding:12px 8px}
+ .jp-answer-feedback{padding:18px 14px}
+ body.endfield-learning .jp-course-row{grid-template-columns:52px 1fr;gap:12px;padding:18px 0}
+ .jp-course-row b{font-size:19px}
+ .jp-course-row .chip{font-size:10px;padding:5px}
+ .jp-course-row>small{grid-column:2;text-align:left}
+ .jp-lesson-sheet{padding:20px 16px;margin:20px 0}
+ .jp-lesson-sheet h2{font-size:22px}
+ .jp-lesson-sheet>p{font-size:16px!important}
+ .jp-lesson-example{padding:14px}
+ .jp-lesson-example pre{font-size:18px;line-height:2}
+ .jp-course-filters{gap:12px}
+ .jp-course-filters label{width:calc(50% - 6px);min-width:0}
+ .jp-course-filters select{width:100%;min-width:0}
+ .jp-lesson-pager button{font-size:12px!important;max-width:58%}
+ .jp-schedule-row{gap:10px}
+ .jp-schedule-row>button{font-size:12px;padding:8px 0}
+ .jp-schedule-row>span{font-size:11px}
+ .jp-search-form{display:block}
+ .jp-search-form button{margin-top:12px;width:100%}
+ .jp-dictionary-entry h3{font-size:23px}
+ .jp-section{padding:22px 0;margin-top:22px}
+}
+
+body.endfield-learning .jp-main button:disabled{background:var(--ef-chip)!important;color:var(--ef-ink-2)!important;opacity:.6}.jp-language-terms{margin:22px 0;border-top:1px solid var(--ef-rule);padding-top:12px}.jp-language-terms dt{font-weight:600;margin-top:14px}.jp-language-terms dd{margin:8px 0 0;line-height:1.9;font-size:14px;color:var(--ef-ink-2)}

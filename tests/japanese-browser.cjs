@@ -1,0 +1,71 @@
+/* Real-browser acceptance. Set LEARNING_BROWSER_MODULE to a Playwright module
+ * path if it is not installed locally. Serve dist at LEARNING_TEST_URL first. */
+const {chromium}=require(process.env.LEARNING_BROWSER_MODULE||'playwright');
+const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path');
+const JSZip=require('../dist/vendor/jszip.min.js');
+const url=process.env.LEARNING_TEST_URL||'http://127.0.0.1:8766/';
+const shots=process.env.LEARNING_SCREENSHOT_DIR||path.resolve(__dirname,'../../japanese-qa');
+function sampleWav(){const samples=4000,b=Buffer.alloc(44+samples*2);b.write('RIFF',0);b.writeUInt32LE(b.length-8,4);b.write('WAVEfmt ',8);b.writeUInt32LE(16,16);b.writeUInt16LE(1,20);b.writeUInt16LE(1,22);b.writeUInt32LE(8000,24);b.writeUInt32LE(16000,28);b.writeUInt16LE(2,32);b.writeUInt16LE(16,34);b.write('data',36);b.writeUInt32LE(samples*2,40);for(let i=0;i<samples;i++)b.writeInt16LE(Math.round(Math.sin(i*2*Math.PI*440/8000)*4000),44+i*2);return b;}
+(async()=>{
+ fs.mkdirSync(shots,{recursive:true});
+ const browser=await chromium.launch({args:['--use-fake-device-for-media-stream','--use-fake-ui-for-media-stream']});
+ const context=await browser.newContext({viewport:{width:390,height:844},permissions:['microphone']});
+ const p=await context.newPage(),errors=[];p.on('pageerror',e=>errors.push(e.message));
+ await p.goto(url,{waitUntil:'networkidle'});await p.evaluate(()=>jpLoadPrivate());
+ await p.locator('.subject-card[data-id="japanese"]').click();
+ assert.equal(await p.evaluate(()=>view),'japanese');assert.equal(await p.locator('#hub-form,.learning-tabs').count(),0);
+ assert.equal(await p.locator('.jp-module-card').count(),7);
+ await p.evaluate(()=>jpStartSession('new','N5'));
+ assert.equal(await p.evaluate(()=>jpStudyState.session.queue.length),5);
+ await p.evaluate(()=>jpRateSession(2));assert.equal(await p.evaluate(()=>Object.keys(jpStudyState.records).length),0,'no grade before reveal');
+ await p.locator('[data-jp="reveal"]').click();await p.locator('[data-jp="rate"][data-rating="2"]').click();
+ const first=await p.evaluate(()=>jpStudyState.session.queue[0]);
+ assert.equal(await p.evaluate(id=>jpStudyState.records[id].reviews,first),1);
+ await p.evaluate(()=>jpRateSession(2));assert.equal(await p.evaluate(id=>jpStudyState.records[id].reviews,first),1,'double grade blocked');
+ assert(await p.locator('.jp-answer-feedback').isVisible());await p.locator('[data-jp="next-card"]').click();
+ assert.equal(await p.evaluate(()=>jpStudyState.session.index),1);
+ await p.reload({waitUntil:'networkidle'});await p.evaluate(()=>jpOpen('session'));
+ assert.equal(await p.evaluate(()=>jpStudyState.session.index),1,'resume persisted');
+ await p.locator('[data-jp="reveal"]').click();await p.locator('[data-jp="rate"][data-rating="0"]').click();
+ const second=await p.evaluate(()=>jpStudyState.session.queue[1]);const wait=await p.evaluate(id=>jpStudyState.records[id].due-Date.now(),second);assert(wait>590000&&wait<=600000);
+ await p.locator('[data-jp="next-card"]').click();
+ await p.evaluate(()=>jpStartSession('new','N4'));assert.equal(await p.evaluate(()=>jpStudyState.session.level),'N4');
+ await p.evaluate(()=>jpStartSession('new','N5'));assert.equal(await p.evaluate(()=>jpStudyState.session.index),2,'paused book resumes');
+ await p.evaluate(id=>{jpWordId=id;jpOpen('word')},first);
+ await p.locator('[data-jp="favorite"]').click();assert(await p.evaluate(id=>jpStudyState.favorites.includes(id),first));
+ await p.locator('#jp-word-note').fill('<img src=x onerror="window.injected=true">\n自己的例句');await p.locator('[data-jp="save-note"]').click();
+ assert.equal(await p.evaluate(()=>window.injected),undefined);await p.reload({waitUntil:'networkidle'});
+ await p.evaluate(id=>{jpWordId=id;jpOpen('word')},first);assert((await p.locator('#jp-word-note').inputValue()).includes('<img'));
+ const zip=new JSZip();zip.file('words.csv','单词,假名,释义,词性,日文例句,例句译文,备注,音频\n猫,ねこ,猫,名词,猫がいます。,有一只猫。,"含逗号,和备注",cat.wav\n');zip.file('cat.wav',sampleWav());
+ await p.evaluate(()=>jpOpen('workbench'));await p.locator('#jp-import-file').setInputFiles({name:'personal.zip',mimeType:'application/zip',buffer:await zip.generateAsync({type:'nodebuffer'})});
+ await p.waitForFunction(()=>!jpImporting&&jpWords.some(w=>w.custom));
+ const custom=await p.evaluate(()=>jpWords.find(w=>w.custom).id);assert((await p.locator('#jp-import-status').innerText()).includes('1 段'));
+ await p.reload({waitUntil:'networkidle'});await p.evaluate(()=>jpLoadPrivate());
+ await p.evaluate(id=>{jpWordId=id;jpOpen('word')},custom);
+ assert((await p.locator('.jp-usage').innerText()).includes('含逗号,和备注'));
+ await p.locator('audio').evaluate(async a=>{await a.play()});await p.waitForFunction(()=>document.querySelector('audio').currentTime>0);
+ assert((await p.locator('audio').getAttribute('src')).startsWith('blob:'));
+ await p.evaluate(async()=>{accountUser={id:'test-other-account'};await jpLoadPrivate()});assert.equal(await p.evaluate(()=>jpWords.filter(w=>w.custom).length),0,'local imports isolated by account');
+ await p.evaluate(async()=>{accountUser=null;await jpLoadPrivate()});assert.equal(await p.evaluate(()=>jpWords.filter(w=>w.custom).length),1);
+ await p.evaluate(()=>jpOpen('workbench'));await p.locator('#jp-import-file').setInputFiles({name:'bad.csv',mimeType:'text/csv',buffer:Buffer.from('单词,释义\n坏词,缺少假名\n')});
+ await p.waitForFunction(()=>!jpImporting&&jpWorkspaceMessage.startsWith('未完成导入'));assert.equal(await p.evaluate(()=>jpWords.filter(w=>w.custom).length),1,'bad import retains old data');
+ await p.evaluate(()=>jpOpenLesson('N1-g0'));assert.equal(await p.evaluate(()=>jpLesson().id),'N1-g0','advanced course independent from operations');
+ await p.evaluate(()=>{const a=jpLessonProgress(jpLesson().id);a.answer=jpLessonQuestion().answer;jpGradeLesson()});assert(!(await p.evaluate(()=>jpLessonProgress(jpLesson().id).checked)),'reading gate enforced');
+ while(!(await p.locator('[data-jp="lesson-page"][data-delta="1"]').isDisabled()))await p.locator('[data-jp="lesson-page"][data-delta="1"]').click();
+ const correct=await p.evaluate(()=>jpLessonQuestion().answer);await p.locator(`input[name="jp-lesson-answer"][value="${correct}"]`).check();await p.locator('[data-jp="grade-lesson"]').click();assert(await p.evaluate(()=>jpStudyState.lessonsDone.includes('N1-g0')));
+ await p.locator(`input[name="jp-lesson-answer"][value="${(correct+1)%3}"]`).check();assert.equal(await p.locator('.jp-answer-feedback').count(),0,'changed answer clears old feedback');
+ await p.evaluate(()=>{jpReadingId='daily';jpOpen('reading')});await p.locator('[data-jp="reading-ruby"]').click();assert(await p.locator('.jp-passage ruby').count()>0);
+ await p.locator('input[name="jp-reading-answer"][value="0"]').check();await p.locator('[data-jp="reading-grade"]').click();assert((await p.locator('.jp-answer-feedback').innerText()).includes('理解正确'));
+ await p.evaluate(()=>jpOpen('kana'));assert.equal(await p.locator('.jp-kana-grid button').count(),46);await p.locator('[data-jp="kana-question"]').click();const kana=await p.evaluate(()=>jpKanaQuiz.answer);await p.locator('[data-jp="kana-answer"]').filter({hasText:kana}).click();assert((await p.locator('main').innerText()).includes('答对了'));
+ await p.locator('[data-jp="stroke"][data-char="水"]').click();await p.waitForFunction(()=>document.querySelector('#jp-stroke-image').complete&&document.querySelector('#jp-stroke-image').naturalWidth>0);
+ const canvas=p.locator('#jp-tracing');await canvas.scrollIntoViewIfNeeded();const rect=await canvas.boundingBox();await p.mouse.move(rect.x+50,rect.y+50);await p.mouse.down();await p.mouse.move(rect.x+180,rect.y+180,{steps:8});await p.mouse.up();assert(await canvas.evaluate(c=>c.getContext('2d').getImageData(0,0,c.width,c.height).data.some((v,i)=>i%4===3&&v>0)));
+ await p.evaluate(()=>{jpOpen('exam');jpStartExam(false)});
+ for(let i=0;i<10;i++){const answer=await p.evaluate(()=>jpExamCurrent().answer);await p.locator(`input[name="jp-exam-answer"][value="${i===0?(answer+1)%4:answer}"]`).check();await p.locator('[data-jp="exam-grade"]').click();await p.locator('[data-jp="exam-next"]').click();}
+ assert.equal(await p.evaluate(()=>jpStudyState.exam.answers.filter(a=>a.correct).length),9);assert(await p.evaluate(()=>Object.keys(jpStudyState.mistakes).length>0));
+ await p.locator('[data-jp="exam-mistakes"]').first().click();assert.equal(await p.evaluate(()=>jpStudyState.exam.ids.length),1);
+ await p.evaluate(()=>jpOpen('conversation'));await p.locator('[data-jp="record"]').click();await p.waitForFunction(()=>jpRecording?.state==='recording');await p.waitForTimeout(350);await p.locator('[data-jp="record"]').click();await p.waitForFunction(()=>!!jpRecordingUrl);assert(await p.evaluate(()=>jpRecordingStream.getTracks().every(t=>t.readyState==='ended')));
+ const audit=await p.evaluate(()=>{let pages=0;const failures=[];for(const c of hubCurriculum.japanese){jpLessonId=c.id;view='japanese';jpPane='lesson';const set=jpLessonPages(c);for(let i=0;i<set.length;i++){jpLessonProgress(c.id).page=i;render();pages++;if(document.documentElement.scrollWidth>innerWidth)failures.push(c.id+':'+i);}}return {courses:hubCurriculum.japanese.length,pages,failures};});assert.deepEqual(audit.failures,[]);
+ for(const theme of ['light','dark'])for(const width of [360,390,430,768,1440]){await p.setViewportSize({width,height:844});await p.evaluate(t=>efSetTheme(t),theme);for(const pane of ['today','books','reading','kana','exam','conversation','lessons','workbench','search','review','saved']){await p.evaluate(x=>jpOpen(x),pane);assert(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),pane+' '+width+' '+theme);}await p.screenshot({path:path.join(shots,'today-'+width+'-'+theme+'.png')});}
+ await p.evaluate(()=>{const id=jpWords.find(w=>!w.custom).id;delete jpStudyState.records[id];const base=Date.now();const times=[];for(let i=0;i<5;i++)times.push(jpRateRecord(id,2,base).due-base);window.testIntervals=times;});assert.deepEqual(await p.evaluate(()=>window.testIntervals),[1,3,7,14,30].map(n=>n*86400000));
+ assert.deepEqual(errors,[]);await browser.close();console.log(JSON.stringify({independentJapanese:true,audit,checks:'SRS gate/resume/pause; original word details; escaped notes; private ZIP + real audio; account isolation; invalid import retention; lesson gates; reading; 46 kana + tracing; exam/mistakes; microphone recording; mobile/desktop light/dark'}));
+})().catch(e=>{console.error(e);process.exit(1)});
