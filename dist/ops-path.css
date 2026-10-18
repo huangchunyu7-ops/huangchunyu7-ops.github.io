@@ -2,6 +2,12 @@
 .ops-path-start h2{font-size:24px}.ops-path-start p{max-width:38em}
 .ops-path-intro>summary{min-height:44px;box-sizing:border-box}
 .ops-path-main .path-number{white-space:nowrap;overflow-wrap:normal;word-break:normal}
+.evidence-coach .completion-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.evidence-coach .coach-suggestions:empty{display:none}
+.evidence-coach ol:empty{display:none}
+body.endfield-learning .evidence-coach{padding:18px!important}
+body.endfield-learning .evidence-coach h3{font-size:18px;margin:0 0 8px}
+body.endfield-learning .evidence-coach p{font-size:14px;line-height:1.8}
 .ops-path-map{border-bottom:1px solid var(--ef-rule);padding:16px 0;margin-bottom:28px}.ops-path-map summary{font-weight:700;cursor:pointer}
 .ops-path-map ol{list-style:none;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;padding:24px 0 0}
 .ops-path-map li{min-width:0}.ops-path-map button{width:100%;display:flex;gap:12px;text-align:left;align-items:center}.ops-path-map button b{flex:1}.ops-path-map button small{white-space:nowrap;color:inherit!important}.ops-path-map li p{font-size:14px;line-height:1.8;margin:10px 0}

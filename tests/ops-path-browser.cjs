@@ -8,7 +8,7 @@ const assert=require('node:assert/strict'),path=require('node:path'),fs=require(
  await page.goto(process.env.LEARNING_TEST_URL||'http://127.0.0.1:8766/');
  await page.evaluate(()=>{hubSubject='ops';view='subject';render()});
  const content=await page.evaluate(()=>{
-  const list=hubCurriculum.opswork,cases=list.filter(c=>c.opsStage),failures=[];
+  const list=hubCurriculum.opswork,cases=list.filter(c=>c.opsStage&&!c.evidenceLab),failures=[];
   for(const c of cases){if(!c.quiz||c.tasks.length!==2||c.teachingPages.length<6)failures.push(c.id+': structure');
    for(const p of c.teachingPages)for(const t of p.terms||[])if(!beginnerTerms[t])failures.push(c.id+': undefined term '+t);
    if(!c.source?.[1])failures.push(c.id+': source');
@@ -18,7 +18,7 @@ const assert=require('node:assert/strict'),path=require('node:path'),fs=require(
   return {count:list.length,cases:cases.length,unique:new Set(list.map(c=>c.id)).size,stages:opsStages.length,failures,
    next:opsNextCourse().id,commandOrder:opsStageCourses('commands').map(c=>c.title),ordered:opsOrderedCourses().map(c=>c.id)};
  });
- assert.equal(content.count,160);assert.equal(content.cases,25);assert.equal(content.unique,content.count);assert.equal(content.ordered.length,content.count);assert.equal(new Set(content.ordered).size,content.count);assert.deepEqual(content.failures,[]);assert.equal(content.stages,11);assert.equal(content.next,'ops-path-lab');assert(content.commandOrder[0].startsWith('whoami'));assert(content.commandOrder.findIndex(t=>t.includes('管道'))>10);
+ assert.equal(content.count,165);assert.equal(content.cases,25);assert.equal(content.unique,content.count);assert.equal(content.ordered.length,content.count);assert.equal(new Set(content.ordered).size,content.count);assert.deepEqual(content.failures,[]);assert.equal(content.stages,11);assert.equal(content.next,'ops-path-lab');assert(content.commandOrder[0].startsWith('whoami'));assert(content.commandOrder.findIndex(t=>t.includes('管道'))>10);
  await page.selectOption('#ops-stage','database');assert((await page.locator('.ops-stage-heading').innerText()).includes('数据库'));
  assert.equal(await page.locator('.path-card:not([hidden])').count(),2);
  const first=await page.locator('.path-card:not([hidden]) h2').first().innerText();await page.locator('[data-route-page="1"]').first().click();assert.notEqual(await page.locator('.path-card:not([hidden]) h2').first().innerText(),first);
@@ -43,7 +43,7 @@ const assert=require('node:assert/strict'),path=require('node:path'),fs=require(
  await page.locator(`input[name="hub-quiz"][value="${(q+1)%3}"]`).check();assert(await page.locator('[data-hub="next"]').isDisabled());
  await page.locator(`input[name="hub-quiz"][value="${q}"]`).check();await page.locator('[data-hub="grade-quiz"]').click();await page.locator('[data-hub="next"]').click();assert.equal(await page.evaluate(()=>activeHubLesson().id),'ops-path-versions');
  await page.reload();assert(await page.evaluate(()=>hubState.completed.opswork.includes('ops-path-lab')));
- const audit=await page.evaluate(()=>{let pages=0;const failures=[];for(const c of hubCurriculum.opswork.filter(c=>c.opsStage)){
+ const audit=await page.evaluate(()=>{let pages=0;const failures=[];for(const c of hubCurriculum.opswork.filter(c=>c.opsStage&&!c.evidenceLab)){
   openHubLesson('opswork',hubCurriculum.opswork.indexOf(c));hubPhase='learn';render();for(let i=0;i<readingSet.length;i++){readingPages[readingKey]=i;paintReading();pages++;if(document.documentElement.scrollWidth>innerWidth)failures.push(c.id+':page '+i);}
  }return {pages,failures};});assert.deepEqual(audit.failures,[]);
  for(const theme of ['light','dark'])for(const width of [360,390,430,768,1440]){
