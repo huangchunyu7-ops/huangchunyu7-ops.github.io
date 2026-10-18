@@ -48,3 +48,6 @@ DOM 回归覆盖全部课程门槛、错误输入、显式确认、改答案后�
 2026-10-10 手机阅读改版：统一 SVG 图标、贴底导航、安全区、手机字体与点击区域；书架每页显示 6 本。内置可直接阅读的 EPUB 增至 18 本，其中新增中文文学 5 本、英文幻想 4 本、青空文库日文幻想/短篇 3 本。出处见 dist/books/NOTICE.md；外部代码许可不替代正文许可。
 
 B站项目线索： https://www.bilibili.com/video/BV1b4421A7ns/ （对应 https://github.com/ShqWW/bilinovel-download ）；轻阅读 https://github.com/toiilf/qingread ，其项目说明链接 B站教程。审查发现它们提供下载/书源/阅读器能力，未确认其现代轻小说正文可公开转载，本项目未调用未获授权的小说抓取接口。
+
+
+2026-10-18 界面更新：按 [hhikr/endfield-ui-skill](https://github.com/hhikr/endfield-ui-skill) 改造首页、课程、书房、账户、排障与可视化页面。采用浅纸底、墨色文字、单一亮黄、切角操作按钮与编号列表；新增可记忆的深浅色切换。保留课程 ID、完成条件、本机进度及账户同步逻辑。Saira 与 Noto Sans SC 的子集字体随站点托管，OFL 许可见 `dist/vendor/fonts/`。设计适配说明见 `deployment/ENDfield-DESIGN.md`，上游来源见 `dist/vendor/endfield/NOTICE.md`。
