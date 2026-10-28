@@ -1,0 +1,15 @@
+/* Adapt the original paper/cobalt module to the GitHub site's existing tokens. */
+body.endfield-learning .civil-main{--civil-panel:var(--ef-panel);color:var(--ef-ink)}
+body.endfield-learning .civil-main :is(.civil-summary,.civil-next,.civil-resume,.civil-session-bar,.civil-material,.civil-note,.civil-memory-card,.civil-cue,.civil-method-link,.civil-method-link article,.civil-resource-grid>article,.civil-teacher-sources>div,.civil-demo,.civil-method-lesson pre,.civil-cue pre){background:var(--ef-panel)!important;border-color:var(--ef-rule);color:var(--ef-ink)}
+body.endfield-learning .civil-main :is(.civil-summary b,.civil-time>b,.civil-memory-card h3,.civil-cue summary>b,.civil-route-card .path-number){color:var(--ef-ink)}
+body.endfield-learning .civil-main :is(.civil-option,.civil-card-grid>button,.civil-modal,.civil-tabs button,.civil-bottom){background:var(--ef-panel);color:var(--ef-ink);border-color:var(--ef-rule)}
+body.endfield-learning .civil-main :is(.civil-controls input,.civil-controls select,.civil-note select,.civil-method-link select,.civil-method-link textarea){background:var(--ef-paper);color:var(--ef-ink);border-color:var(--ef-rule)}
+body.endfield-learning .civil-main .civil-tabs button.active{background:var(--ef-signal);color:var(--ef-on-signal)}
+body.endfield-learning .civil-main .civil-option.selected{background:var(--ef-chip);border:2px solid var(--ef-ink)}
+body.endfield-learning .civil-main :is(.civil-option.correct,.civil-card-grid .correct,.civil-route-card.passed){background:#e8f2df!important;color:#243b1c;border-color:#648b45}
+body.endfield-learning .civil-main :is(.civil-option.incorrect,.civil-card-grid .wrong){background:#ffede8;color:#7a3025;border-color:#b55757}
+body.endfield-learning .civil-main :is(.civil-boundary,.civil-bad-cues article){background:var(--ef-chip);color:var(--ef-ink);border-color:var(--ef-rule)}
+html[data-theme=dark] body.endfield-learning .civil-main :is(.civil-option.correct,.civil-card-grid .correct,.civil-route-card.passed){background:#25372b!important;color:#d3eccc;border-color:#82a875}
+html[data-theme=dark] body.endfield-learning .civil-main :is(.civil-option.incorrect,.civil-card-grid .wrong){background:#412a27;color:#ffdbd1;border-color:#c58c7d}
+body.endfield-learning .civil-main .civil-route-card{display:grid}
+@media(max-width:760px){body.endfield-learning .civil-bottom{bottom:calc(76px + env(safe-area-inset-bottom));padding:12px}.civil-main .civil-controls label{min-width:0}}

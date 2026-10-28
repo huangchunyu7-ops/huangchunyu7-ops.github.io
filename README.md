@@ -76,3 +76,12 @@ B站项目线索： https://www.bilibili.com/video/BV1b4421A7ns/ （对应 https
 
 
 2026-10-18 界面更新：按 [hhikr/endfield-ui-skill](https://github.com/hhikr/endfield-ui-skill) 改造首页、课程、书房、账户、排障与可视化页面。采用浅纸底、墨色文字、单一亮黄、切角操作按钮与编号列表；新增可记忆的深浅色切换。保留课程 ID、完成条件、本机进度及账户同步逻辑。Saira 与 Noto Sans SC 的子集字体随站点托管，OFL 许可见 `dist/vendor/fonts/`。设计适配说明见 `deployment/ENDfield-DESIGN.md`，上游来源见 `dist/vendor/endfield/NOTICE.md`。
+
+
+## 考公行测模块（2026-10-28 同步）
+
+通过首页“考公刷题”课堂卡或工具菜单进入，也可打开 `/#civil`。包含59类原创通用方法课、289道原创分层训练、六科五阶段闯关、口诀检索、名师公开资料入口、错题与复盘；515套真题目录按需读取原仓库。完整说明见 [考公模块说明](docs/civil-module.md)。
+
+本次在 GitHub 当前版本上合并，保留账户、手机导航、主题、日语、运维工作路线和排障证据功能。考公题库与进度仍在本浏览器保存，可导出备份，尚未接入账户跨设备同步。真题来源解析与自动题型建议未逐题核验。
+
+验证：`node tests/civil.cjs`、`node tests/civil-path.cjs`，以及原有课程、运维深度与进度恢复回归。浏览器实测错答停留、阶段锁定、方法检索、返回导航和手机尺寸布局。
