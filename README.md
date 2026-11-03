@@ -85,3 +85,8 @@ B站项目线索： https://www.bilibili.com/video/BV1b4421A7ns/ （对应 https
 本次在 GitHub 当前版本上合并，保留账户、手机导航、主题、日语、运维工作路线和排障证据功能。考公题库与进度仍在本浏览器保存，可导出备份，尚未接入账户跨设备同步。真题来源解析与自动题型建议未逐题核验。
 
 验证：`node tests/civil.cjs`、`node tests/civil-path.cjs`，以及原有课程、运维深度与进度恢复回归。浏览器实测错答停留、阶段锁定、方法检索、返回导航和手机尺寸布局。
+
+
+## Taste Skill 界面更新
+
+2026-11-03：按 [Leonxlnx/taste-skill](https://github.com/Leonxlnx/taste-skill) v2.1.5 的应用界面规则改造，采用 editorial-greeting，seed 20261103。首页突出继续学习、运维与排障；桌面侧栏、平板折叠和手机底部导航共享样式。课程与判定引擎保持原实现。设计依据、截图和验证范围见 [改版记录](docs/taste-redesign.md)。
