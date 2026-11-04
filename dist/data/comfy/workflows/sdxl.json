@@ -1,0 +1,212 @@
+{
+  "nodes": [
+    {
+      "id": 7,
+      "type": "SaveImage",
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "images",
+          "type": "IMAGE"
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "type": "CLIPTextEncode",
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CONDITIONING",
+          "type": "CONDITIONING"
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "type": "CLIPTextEncode",
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CONDITIONING",
+          "type": "CONDITIONING"
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "type": "KSampler",
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL"
+        },
+        {
+          "name": "positive",
+          "type": "CONDITIONING"
+        },
+        {
+          "name": "negative",
+          "type": "CONDITIONING"
+        },
+        {
+          "name": "latent_image",
+          "type": "LATENT"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "LATENT",
+          "type": "LATENT"
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "type": "EmptyLatentImage",
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "LATENT",
+          "type": "LATENT"
+        }
+      ]
+    },
+    {
+      "id": 14,
+      "type": "VAEDecode",
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "samples",
+          "type": "LATENT"
+        },
+        {
+          "name": "vae",
+          "type": "VAE"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE"
+        }
+      ]
+    },
+    {
+      "id": 15,
+      "type": "CheckpointLoaderSimple",
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL"
+        },
+        {
+          "name": "CLIP",
+          "type": "CLIP"
+        },
+        {
+          "name": "VAE",
+          "type": "VAE"
+        }
+      ]
+    }
+  ],
+  "links": [
+    [
+      33,
+      10,
+      0,
+      12,
+      1,
+      "CONDITIONING"
+    ],
+    [
+      34,
+      11,
+      0,
+      12,
+      2,
+      "CONDITIONING"
+    ],
+    [
+      35,
+      13,
+      0,
+      12,
+      3,
+      "LATENT"
+    ],
+    [
+      36,
+      12,
+      0,
+      14,
+      0,
+      "LATENT"
+    ],
+    [
+      37,
+      14,
+      0,
+      7,
+      0,
+      "IMAGE"
+    ],
+    [
+      38,
+      15,
+      0,
+      12,
+      0,
+      "MODEL"
+    ],
+    [
+      39,
+      15,
+      1,
+      10,
+      0,
+      "CLIP"
+    ],
+    [
+      40,
+      15,
+      1,
+      11,
+      0,
+      "CLIP"
+    ],
+    [
+      41,
+      15,
+      2,
+      14,
+      1,
+      "VAE"
+    ]
+  ],
+  "version": 0.4
+}

@@ -1,0 +1,318 @@
+{
+  "nodes": [
+    {
+      "id": 37,
+      "type": "UNETLoader",
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL"
+        }
+      ]
+    },
+    {
+      "id": 38,
+      "type": "CLIPLoader",
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "CLIP",
+          "type": "CLIP"
+        }
+      ]
+    },
+    {
+      "id": 39,
+      "type": "VAELoader",
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "VAE",
+          "type": "VAE"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "type": "VAEDecode",
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "samples",
+          "type": "LATENT"
+        },
+        {
+          "name": "vae",
+          "type": "VAE"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE"
+        }
+      ]
+    },
+    {
+      "id": 57,
+      "type": "CreateVideo",
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE"
+        },
+        {
+          "name": "audio",
+          "type": "AUDIO"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "VIDEO",
+          "type": "VIDEO"
+        }
+      ]
+    },
+    {
+      "id": 58,
+      "type": "SaveVideo",
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "video",
+          "type": "VIDEO"
+        }
+      ],
+      "outputs": []
+    },
+    {
+      "id": 55,
+      "type": "Wan22ImageToVideoLatent",
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "vae",
+          "type": "VAE"
+        },
+        {
+          "name": "start_image",
+          "type": "IMAGE"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "LATENT",
+          "type": "LATENT"
+        }
+      ]
+    },
+    {
+      "id": 56,
+      "type": "LoadImage",
+      "mode": 4,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE"
+        },
+        {
+          "name": "MASK",
+          "type": "MASK"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "type": "CLIPTextEncode",
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CONDITIONING",
+          "type": "CONDITIONING"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "type": "CLIPTextEncode",
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CONDITIONING",
+          "type": "CONDITIONING"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "type": "KSampler",
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL"
+        },
+        {
+          "name": "positive",
+          "type": "CONDITIONING"
+        },
+        {
+          "name": "negative",
+          "type": "CONDITIONING"
+        },
+        {
+          "name": "latent_image",
+          "type": "LATENT"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "LATENT",
+          "type": "LATENT"
+        }
+      ]
+    },
+    {
+      "id": 48,
+      "type": "ModelSamplingSD3",
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL"
+        }
+      ]
+    }
+  ],
+  "links": [
+    [
+      35,
+      3,
+      0,
+      8,
+      0,
+      "LATENT"
+    ],
+    [
+      46,
+      6,
+      0,
+      3,
+      1,
+      "CONDITIONING"
+    ],
+    [
+      52,
+      7,
+      0,
+      3,
+      2,
+      "CONDITIONING"
+    ],
+    [
+      74,
+      38,
+      0,
+      6,
+      0,
+      "CLIP"
+    ],
+    [
+      75,
+      38,
+      0,
+      7,
+      0,
+      "CLIP"
+    ],
+    [
+      76,
+      39,
+      0,
+      8,
+      1,
+      "VAE"
+    ],
+    [
+      94,
+      37,
+      0,
+      48,
+      0,
+      "MODEL"
+    ],
+    [
+      95,
+      48,
+      0,
+      3,
+      0,
+      "MODEL"
+    ],
+    [
+      104,
+      55,
+      0,
+      3,
+      3,
+      "LATENT"
+    ],
+    [
+      105,
+      39,
+      0,
+      55,
+      0,
+      "VAE"
+    ],
+    [
+      106,
+      56,
+      0,
+      55,
+      1,
+      "IMAGE"
+    ],
+    [
+      107,
+      8,
+      0,
+      57,
+      0,
+      "IMAGE"
+    ],
+    [
+      108,
+      57,
+      0,
+      58,
+      0,
+      "VIDEO"
+    ]
+  ],
+  "version": 0.4
+}
