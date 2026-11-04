@@ -1,6 +1,9 @@
 /* Public study topics are derived from the original course dataset. No private extraction document is published. */
 function cfStudyTopics(){return cfLessonRows.map(r=>[r[2],r[3],r[0]]);}
 const cfResourceProjects=[
+{"name": "MiniMax Music 3 官方教程", "url": "https://docs.comfy.org/tutorials/audio/minimax/minimax-music-3", "use": "音乐描述、歌词、条件时长、音频 latent 与解码交付。", "read": "已核对官方教程与 Core 的音乐节点定义；本站音乐图为原创教学结构。"},
+{"name": "MiniMax H3 Audio T8", "url": "https://github.com/T8mars/comfyui-minimax-h3-audio-T8", "use": "二采条件协调、原音与生成音轨、兼容性与实验路线边界。", "read": "已读取 README、二阶段生成与导演台双采说明；不将作者实测等同本站或你的电脑实测。"},
+{"name": "FeiHou 视频封装", "url": "https://github.com/FX-FeiHou/ComfyUI-FeiHou-Toolbox", "use": "理解 VideoCombineV2 的帧 / 音轨输入与 VHS_FILENAMES 输出。", "read": "已核对公开节点定义；没有安装或调用外部生成接口。"},
  {name:'ComfyUI 官方模板',url:'https://github.com/Comfy-Org/workflow_templates',use:'先找最小、配套的生图或视频模板。本站内置 SDXL、Wan 2.2 5B、H3 三份官方示例。',read:'已读取示例 JSON 与 MIT 许可；没有下载模型或执行生成。'},
  {name:'H3 ClipStream',url:'https://github.com/AraneaQwQ/ComfyUI-H3-ClipStream',use:'学习历史镜头 AV latent 归档、选择、Motion Context 接续、Trim 与长片组织。',read:'已读取 README、迁移说明、GPL-3.0 许可与公开 38 节点示例。'},
  {name:'H3 Long Video Manager',url:'https://github.com/AraneaQwQ/H3-Long-Video-Manager',use:'理解参考视频切段、素材选择和 Guide 时间轴；与生成、最终剪辑分开。',read:'已读取 README；未把历史槽位和参数当成当前版本默认值。'},

@@ -1,0 +1,273 @@
+{
+  "nodes": [
+    {
+      "id": 1,
+      "type": "UNETLoader",
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "type": "CLIPLoader",
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "CLIP",
+          "type": "CLIP"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "type": "VAELoader",
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "VAE",
+          "type": "VAE"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "type": "MiniMaxMusic3TextEncode",
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP"
+        },
+        {
+          "name": "caption",
+          "type": "STRING"
+        },
+        {
+          "name": "lyrics",
+          "type": "STRING"
+        },
+        {
+          "name": "seed",
+          "type": "INT"
+        },
+        {
+          "name": "max_duration",
+          "type": "FLOAT"
+        },
+        {
+          "name": "cfg_scale",
+          "type": "FLOAT"
+        },
+        {
+          "name": "top_k",
+          "type": "INT"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CONDITIONING",
+          "type": "CONDITIONING"
+        },
+        {
+          "name": "seconds",
+          "type": "FLOAT"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "type": "EmptyMiniMaxMusic3LatentAudio",
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "seconds",
+          "type": "FLOAT"
+        },
+        {
+          "name": "batch_size",
+          "type": "INT"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "LATENT",
+          "type": "LATENT"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "type": "ConditioningZeroOut",
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "conditioning",
+          "type": "CONDITIONING"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CONDITIONING",
+          "type": "CONDITIONING"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "type": "KSampler",
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL"
+        },
+        {
+          "name": "positive",
+          "type": "CONDITIONING"
+        },
+        {
+          "name": "negative",
+          "type": "CONDITIONING"
+        },
+        {
+          "name": "latent_image",
+          "type": "LATENT"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "LATENT",
+          "type": "LATENT"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "type": "VAEDecodeAudio",
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "samples",
+          "type": "LATENT"
+        },
+        {
+          "name": "vae",
+          "type": "VAE"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "AUDIO",
+          "type": "AUDIO"
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "type": "SaveAudioAdvanced",
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "audio",
+          "type": "AUDIO"
+        }
+      ]
+    }
+  ],
+  "links": [
+    [
+      1,
+      2,
+      0,
+      4,
+      0,
+      "CLIP"
+    ],
+    [
+      2,
+      4,
+      0,
+      7,
+      1,
+      "CONDITIONING"
+    ],
+    [
+      3,
+      4,
+      0,
+      6,
+      0,
+      "CONDITIONING"
+    ],
+    [
+      4,
+      4,
+      1,
+      5,
+      0,
+      "FLOAT"
+    ],
+    [
+      5,
+      5,
+      0,
+      7,
+      3,
+      "LATENT"
+    ],
+    [
+      6,
+      6,
+      0,
+      7,
+      2,
+      "CONDITIONING"
+    ],
+    [
+      7,
+      1,
+      0,
+      7,
+      0,
+      "MODEL"
+    ],
+    [
+      8,
+      7,
+      0,
+      8,
+      0,
+      "LATENT"
+    ],
+    [
+      9,
+      3,
+      0,
+      8,
+      1,
+      "VAE"
+    ],
+    [
+      10,
+      8,
+      0,
+      9,
+      0,
+      "AUDIO"
+    ]
+  ],
+  "version": 0.4
+}

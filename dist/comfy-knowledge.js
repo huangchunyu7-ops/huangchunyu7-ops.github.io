@@ -83,8 +83,143 @@ const cfNodeRows=[
 const cfSources={
  core:['ComfyUI 核心与节点说明','https://docs.comfy.org/basic-concepts/nodes'],h3:['ComfyUI H3 节点源码','https://github.com/Comfy-Org/ComfyUI/blob/master/comfy_extras/nodes_minimax_h3.py'],video:['ComfyUI 视频节点源码','https://github.com/Comfy-Org/ComfyUI/blob/master/comfy_extras/nodes_video.py'],wan:['Wan 2.2 官方工作流','https://docs.comfy.org/tutorials/video/wan/wan2_2'],clipstream:['H3 ClipStream 项目','https://github.com/AraneaQwQ/ComfyUI-H3-ClipStream'],noise:['H3 Context Noise','https://github.com/beijinren/ComfyUI-H3-Context-Noise'],kj:['ComfyUI-KJNodes','https://github.com/kijai/ComfyUI-KJNodes'],rgthree:['rgthree-comfy','https://github.com/rgthree/rgthree-comfy'],reserved:['ReservedVRAM','https://github.com/Windecay/ComfyUI-ReservedVRAM'],vhs:['VideoHelperSuite','https://github.com/Kosinkadink/ComfyUI-VideoHelperSuite']
 };
+Object.assign(cfTypes,{VHS_FILENAMES:["视频文件集合","封装器返回的文件路径等记录；不是解码后的 IMAGE，也不是 Core VIDEO 对象。"]});
+Object.assign(cfSources,{"feihou":["FeiHou 视频封装实现","https://github.com/FX-FeiHou/ComfyUI-FeiHou-Toolbox/blob/main/video_combine_v2.py"],"manager":["H3 素材分段与时间轴说明","https://github.com/AraneaQwQ/H3-Long-Video-Manager"],"music": ["MiniMax Music 3 官方教程", "https://docs.comfy.org/tutorials/audio/minimax/minimax-music-3"], "musicCore": ["音乐节点定义", "https://github.com/Comfy-Org/ComfyUI/blob/master/comfy_extras/nodes_minimax_music.py"], "audioCore": ["音频节点定义", "https://github.com/Comfy-Org/ComfyUI/blob/master/comfy_extras/nodes_audio.py"], "t8": ["T8 节点项目说明", "https://github.com/T8mars/comfyui-minimax-h3-audio-T8"], "t8upscale": ["T8 二阶段生成说明", "https://github.com/T8mars/comfyui-minimax-h3-audio-T8/blob/main/examples/workflows/13-latent-upscale/README.md"], "easyUpscale": ["Easy 3D 放大器实现", "https://github.com/nkxx188/ComfyUI-MiniMaxH3-Easy/blob/main/h3_latent_upscaler.py"], "avCore": ["Core 音画 latent 接口", "https://github.com/Comfy-Org/ComfyUI/blob/master/comfy_extras/nodes_lt.py"]});
+cfNodeRows.push(...[
+ [
+  "MiniMaxMusic3TextEncode",
+  "歌词与音乐描述编码",
+  "把 caption、lyrics 与匹配编码器转为 CONDITIONING，并返回 seconds。",
+  "条件送采样器，秒数可供空音频 latent 决定长度。",
+  "seconds 不是视频帧数，最大时长也不保证实际歌曲恰好同长。",
+  "musicCore"
+ ],
+ [
+  "EmptyMiniMaxMusic3LatentAudio",
+  "建立音乐 latent",
+  "按 seconds 和 batch_size 建立音乐模型使用的音频潜空间。",
+  "为后续采样准备正确长度与形状。",
+  "这是 LATENT，不是静音 WAV 或可播放 AUDIO。",
+  "musicCore"
+ ],
+ [
+  "SaveAudioAdvanced",
+  "按格式导出音频",
+  "接收 AUDIO 并按所选格式保存；接口还可继续传出 AUDIO。",
+  "将解码结果交付为音频文件。",
+  "保存类节点也可能有输出，不能一概说它没有下游。",
+  "audioCore"
+ ],
+ [
+  "VAEDecodeAudioTiled",
+  "分块解码音频",
+  "用匹配音频 VAE 进行分块解码，得到 AUDIO。",
+  "在支持场景下减少单次解码负担。",
+  "分块可能改变耗时和边界表现，不是免费增加显存。",
+  "audioCore"
+ ],
+ [
+  "ConditioningZeroOut",
+  "清零条件表示",
+  "把输入条件中的表示清零，输出 CONDITIONING。",
+  "为相应采样路线准备零条件分支。",
+  "不是清理显存，也不是删除模型权重。",
+  "core"
+ ],
+ [
+  "LTXVSeparateAVLatent",
+  "拆开联合音画 latent",
+  "从配套联合潜空间中拆出 video_latent 与 audio_latent。",
+  "让视频空间变换与音频分量分别处理。",
+  "名称含 LTXV 不能证明任意 LTX 与 H3 权重互通；先核对布局与调用路线。",
+  "avCore"
+ ],
+ [
+  "LTXVConcatAVLatent",
+  "合回音画 latent",
+  "将兼容的视频与音频分量组织为联合 LATENT。",
+  "让下游按联合音画接口接收数据。",
+  "同叫 LATENT 仍需核对时间、批次与布局。",
+  "avCore"
+ ],
+ [
+  "MiniMaxH3TwoPassLatentReconcileT8Advanced",
+  "二采潜空间与条件协调",
+  "接收 learned_latent、highres_template 和 positive，输出协调后的 av_latent、positive 与报告。",
+  "在放大后的采样表示与重新建立的高分条件之间核对契约。",
+  "音频策略不是永远锁定一采；依所选版本与模式核对。",
+  "t8upscale"
+ ],
+ [
+  "H3 Long Video Manager",
+  "把源片组织成素材段",
+  "将输入视频与音频按配套规则分段，保存并输出选中段。",
+  "给后续逐段生成提供素材。",
+  "不要与保存生成历史 latent 的 Clip Bin 混为一谈。",
+  "manager"
+ ],
+ [
+  "H3 Smart Split",
+  "按镜头检测素材分段",
+  "检测镜头切换并把片段放入素材库，输出选择的帧与声音。",
+  "按源片镜头结构组织素材。",
+  "检测到镜头不代表生成阶段已自动复刻运镜。",
+  "manager"
+ ],
+ [
+  "H3 Segment Picker",
+  "选择素材片段",
+  "从项目素材库选择一段，输出 IMAGE、AUDIO、帧数与片段编号。",
+  "把已分段素材送给下一条处理路线。",
+  "它与输出历史 latent 的 Clip Bin Picker 不同。",
+  "manager"
+ ],
+ [
+  "MiniMaxClipBinLongBuilder",
+  "组织归档片段成片",
+  "从生成片段库选取并按顺序组织已归档媒体。",
+  "将镜头交付为较长视频。",
+  "合片本身不是重新生成动作或自动修好每处接缝。",
+  "clipstream"
+ ]
+]);
+cfNodeRows.push(...[
+ [
+  "MiniMaxClipBinDualPicker",
+  "恢复双采历史",
+  "从同一张归档卡片分别恢复一采与二采 latent，并给出项目和片段信息。",
+  "让两条接续路线各自拿到匹配阶段的历史。",
+  "只归档一采时二采输出可为空；首段模式也可能都为空。",
+  "clipstream"
+ ],
+ [
+  "MiniMaxClipBinDualSaver",
+  "归档两阶段结果",
+  "把一采与可选二采 latent 归档到同一卡片，并接收对应媒体预览。",
+  "把完整历史状态与交付片段组织起来供后续选择。",
+  "latent 与 Trim 后的媒体用途不同，不能只保存 MP4 代替历史。",
+  "clipstream"
+ ],
+ [
+  "MiniMaxH3EasyLatentUpscaler3D",
+  "H3 视频 latent 学习型放大",
+  "用匹配的学习型模型改变视频 latent 空间网格；保持时间轴长度。",
+  "在高分二采前准备视频表示，联合输入中其他流仍须保持契约。",
+  "端口声明为通配类型，运行实现仍要求正确 LATENT 布局，不代表任意数据都可输入。",
+  "easyUpscale"
+ ],
+ [
+  "VideoCombineV2",
+  "封装帧与音轨并返回文件集合",
+  "把帧和可选音轨按格式导出，接口输出 VHS_FILENAMES。",
+  "把交付媒体文件引用传给支持该集合的后续节点。",
+  "文件集合不是 IMAGE，也不是 Core 的 VIDEO 对象。",
+  "feihou"
+ ]
+]);
 const cfNodeInfo=Object.fromEntries(cfNodeRows.map(([type,name,does,why,trap,source])=>[type,{name,does,why,trap,source}]));
 const cfSamples=[
+ {"id": "music-teaching", "title": "音乐：从歌词到 AUDIO", "file": "music-teaching.json", "kind": "teaching", "source": "music", "focus": "4", "note": "本站原创教学结构：9 个节点、10 条连接；根据公开 Core 接口编写，不是网盘原文件。无参数、提示词和素材，不能直接用于生成。"},
  {id:'sdxl',title:'SDXL：最小生图结构',file:'sdxl.json',repo:'Comfy-Org/workflow_templates',path:'templates/image_sdxl_simple.json',sha:'81a56c815219946840d99c8a67401dba5d9fea37',license:'MIT',focus:'12',note:'教学结构版：7 个主图节点。移除便签、提示词、参数值与素材引用，仅保留节点、端口和连线。'},
  {id:'wan22',title:'Wan 2.2 5B：视频结构',file:'wan22.json',repo:'Comfy-Org/workflow_templates',path:'templates/video_wan2_2_5B_ti2v.json',sha:'a8902e6e28b9777c6b324861cc336eed491687b5',license:'MIT',focus:'55',note:'5B TI2V 教学结构版，12 个主图节点。参数与素材引用已移除；不能当作可运行原工作流。'},
  {id:'h3-i2v',title:'H3：首帧音画结构',file:'h3-i2v.json',repo:'Comfy-Org/workflow_templates',path:'templates/video_minimax_h3_i2v.json',sha:'bcc680e74537bffa89bff3eb6eb11a7c220e38e9',license:'MIT',focus:'105',note:'教学结构版：6 个主图节点与 21 个内部节点。参数、提示词和素材引用已移除，展开子图继续追数据。'},

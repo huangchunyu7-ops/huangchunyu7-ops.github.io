@@ -62,6 +62,12 @@
 - Supabase JS 2.117.3：dist/vendor/supabase-NOTICE.txt、SUPABASE-LICENSE 与 supabase-legal。
 - 教学主题参考 GNU、systemd、firewalld、Netfilter、Docker、Kubernetes、Python 官方文档，以及 DevOps Exercises 等项目；引用不表示这些项目为本网站背书。
 
+## ComfyUI 生图与视频学习区
+
+通过导航“ComfyUI 学习”进入。35 节原创课按节点基础、生图、控制与复现、视频、H3 接续、排障和工作流实战排列；复用读讲解、验证、手动确认、小测和手动下一课，错误答案不跳关。
+
+可本地解析界面 / API JSON，追端口、连线与子图。五份教学结构示例包含四份上游结构版与一份原创音乐图，没有模型参数、提示词或素材，不能直接运行生成。未知节点明确待核实，静态解析不代表模型兼容、效果或显存已验证。来源与边界见 [ComfyUI 交付记录](docs/comfy-learning-review.md)。
+
 ## 验证
 
 DOM 回归覆盖全部课程门槛、错误输入、显式确认、改答案后的失效、本机保存，以及管道/SQL/EPUB 处理。Playwright 验证桌面与手机翻页、阅读恢复、题目反馈和 Python 运行。账号模拟集成验证版本冲突、失败保留与笔记转义；真实 OAuth 和跨账户隔离应按配置教程完成验收。

@@ -26,14 +26,15 @@ const dangling=E.normalize({nodes:[{id:1,type:'X'}],links:[[1,1,0,999,0,'IMAGE']
  const h=harness(),{q,hub,change,document}=h;
  vm.runInContext('function learningRouteSnapshot(){return {view};} async function restoreLearningRoute(r){view=r.view;render();}',h.ctx);
  vm.runInContext(fs.readFileSync(path.join(dir,'comfy-ui.js'),'utf8'),h.ctx,{filename:'comfy-ui.js'});
- assert.equal(q('hubCurriculum.comfy.length'),25);assert.equal(q('new Set(hubCurriculum.comfy.map(c=>c.id)).size'),25);
- q('cfOpen()');assert(document.querySelector('h1').textContent.includes('ComfyUI'));assert(document.querySelector('[data-cf-pane="inspect"]'));
+ assert.equal(q('hubCurriculum.comfy.length'),35);await change({id:'cf-sample',value:'music-teaching'});assert.equal(q('cfSampleId'),'music-teaching');assert(q('hubCurriculum.comfy.every(c=>Array.isArray(c.source)&&cfSamples.some(s=>s.id===c.comfySample))'));assert.equal(Object.keys(samples).length,5);assert.equal(q('new Set(hubCurriculum.comfy.map(c=>c.id)).size'),35);
+ q('cfOpen()');assert(document.querySelector('h1').textContent.includes('ComfyUI'));assert(document.querySelector('[data-cf-pane="inspect"]'));assert(q("cfModeHTML({mode:4}).includes('绕过')"));assert(q("cfModeHTML({mode:2}).includes('不执行')"));
+ await q("cfOpen('inspect','music-teaching')");await q("cfLoadSample('music-teaching')");assert(document.querySelector('main').textContent.includes('音乐'));assert(q("cfSampleNoticeHTML(cfSamples.find(s=>s.id==='music-teaching')).includes('本站原创')"));assert(!q("cfSampleNoticeHTML(cfSamples.find(s=>s.id==='music-teaching')).includes('undefined')"));
  await q("cfOpen('inspect','h3-clipstream')");await q("cfLoadSample('h3-clipstream')");
  assert.equal(q('cfDocument.graphs.length'),4);assert(document.querySelector('.cf-node-detail'));assert(document.querySelector('.cf-wire-row'));assert(document.querySelector('#cf-node-list').textContent.includes('MotionContext'));
  q("cfGraphId=cfDocument.graphs[1].id;cfNodeId=cfGraph().nodes[0].id;render()");assert(document.querySelector('#cf-graph').innerHTML.includes('运算'));
  h.ctx.apiImport=api;q("cfAccept(apiImport,'local');render()");assert(!document.querySelector('#cf-node-detail img'));assert(document.querySelector('#cf-node-list').innerHTML.includes('&lt;img'));
  q("cfNodeId='2';render()");assert(document.querySelector('.cf-node-detail').textContent.includes('尚未收录核实'));assert(document.querySelector('.cf-node-detail').textContent.includes('LATENT')||document.querySelector('.cf-node-detail').textContent.includes('未知'));
- q("cfPane='sources';render()");assert.equal(q('cfStudyTopics().length'),25);assert(document.querySelector('main').textContent.includes('移除全部提示词'));assert(document.querySelector('main').textContent.includes('字幕尚未取得'));
+ q("cfPane='sources';render()");assert.equal(q('cfStudyTopics().length'),35);assert(document.querySelector('main').textContent.includes('移除全部提示词'));assert(document.querySelector('main').textContent.includes('字幕尚未取得'));
  q("cfPane='practice';render()");assert(document.querySelector('#cf-wire-target'));assert(document.querySelector('#cf-frames'));
  let checked=0;
  for(let i=0;i<q('hubCurriculum.comfy.length');i++){
@@ -43,6 +44,6 @@ const dangling=E.normalize({nodes:[{id:1,type:'X'}],links:[[1,1,0,999,0,'IMAGE']
   const bad=q('(activeHubLesson().quiz.answer+1)%3');await change({name:'hub-quiz',value:String(bad)});await hub('grade-quiz');assert(!q('hubPassed()'));await hub('next');assert.equal(q('hubLesson'),i);
   await change({name:'hub-quiz',value:String(q('activeHubLesson().quiz.answer'))});await hub('grade-quiz');assert(q('hubPassed()'));assert.equal(q('hubLesson'),i);checked++;
  }
- const restored=harness([...h.storage]);assert.equal(restored.q('hubState.completed.comfy.length'),25);
+ const restored=harness([...h.storage]);assert.equal(restored.q('hubState.completed.comfy.length'),35);
  console.log(JSON.stringify({lessons:checked,samples:Object.keys(samples).length,checks:'UI/API/object links, subgraphs, union types, honest unknowns, missing endpoints, cycles, size limits, escaping, frame arithmetic, all course gates, explicit confirmation, no wrong-answer advance and saved progress',rendering:'DOM/state; browser QA separate'}));
 })().catch(e=>{console.error(e);process.exitCode=1;});
