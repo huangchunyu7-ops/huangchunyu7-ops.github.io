@@ -1,0 +1,49 @@
+/* Continue the established neutral learning workspace, with one clear action. */
+.novice-start{display:grid;grid-template-columns:minmax(0,1fr) 240px;gap:32px;padding:24px 0 28px;margin-bottom:24px;border-bottom:1px solid var(--taste-line)}
+body.taste-learning .novice-start h2{font-size:22px;margin:0 0 10px}
+body.taste-learning .novice-start p{margin:0 0 10px;max-width:55ch}
+.novice-start ol{padding-left:22px;margin:8px 0 0}
+.novice-start-action{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:10px}
+.novice-start-action small{font-size:12px;color:var(--taste-muted);max-width:24ch}
+.novice-class-guide{margin:0 0 20px;padding:16px 0;border-top:1px solid var(--taste-line);border-bottom:1px solid var(--taste-line)}
+body.taste-learning .novice-class-guide p{font-size:14px;margin:0 0 8px}
+.novice-class-guide p b{color:var(--taste-ink);font-weight:500}
+.novice-class-guide details{font-size:13px}
+.novice-class-guide summary{cursor:pointer;min-height:44px;display:list-item;padding:10px 0}
+.novice-class-guide details p{margin-top:8px}
+.novice-class-guide ol{padding-left:22px}
+body.taste-learning .novice-next-cue{color:var(--taste-accent);margin:4px 0 0}
+.novice-reading-outline{font-size:12px!important;line-height:1.8!important;margin:0 0 16px;color:var(--taste-muted)}
+.novice-parts{margin:20px 0 0}
+.novice-parts>div{display:grid;grid-template-columns:minmax(100px,1fr) minmax(0,2fr);gap:20px;padding:14px 0;border-top:1px solid var(--taste-line)}
+.novice-parts dt{color:var(--taste-ink);min-width:0;overflow-wrap:anywhere}
+.novice-parts dd{margin:0;color:var(--taste-muted);font-size:15px;line-height:1.8}
+.novice-parts code{white-space:pre-wrap}
+.novice-io{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;margin:20px 0}
+.novice-io>div{min-width:0;padding:16px;background:var(--taste-panel);border-radius:12px}
+body.taste-learning .novice-io h3{font-size:14px;margin:0 0 12px;font-weight:500}
+body.taste-learning .novice-io pre{margin:0;max-width:100%;white-space:pre-wrap;overflow-wrap:anywhere;font-size:14px;line-height:1.85;padding:12px;background:var(--taste-raised);color:var(--taste-ink);border:1px solid var(--taste-line)}
+.novice-pipeline{margin-top:24px;border-top:1px solid var(--taste-line);padding-top:20px}
+.novice-pipeline>label{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.novice-pipe-steps{display:flex;gap:8px;flex-wrap:wrap}
+body.taste-learning .novice-pipe-steps button{border:1px solid var(--taste-control);min-height:44px}
+body.taste-learning .novice-pipe-steps [aria-pressed=true]{background:var(--taste-active);border-color:var(--taste-accent);color:var(--taste-accent)}
+.novice-command-help{padding:12px 0;border-top:1px solid var(--taste-line);border-bottom:1px solid var(--taste-line);margin-bottom:20px}
+.novice-command-help>summary{min-height:44px;cursor:pointer;padding:10px 0}
+.novice-input-help{font-size:13px!important;margin:8px 0 12px}
+.novice-output-label{font-size:14px!important;margin-top:24px!important}
+.novice-remedy{padding:20px;margin:16px 0;border-left:3px solid var(--taste-accent);background:var(--taste-panel);border-radius:0 12px 12px 0}
+body.taste-learning .novice-remedy h3{font-size:16px;margin:0 0 10px}
+body.taste-learning .novice-remedy p{font-size:14px;margin:8px 0 12px}
+.novice-route-choice{display:grid;grid-template-columns:1fr 1fr;gap:32px}
+.novice-how{padding-left:24px}
+.novice-how li{margin-bottom:16px}
+.novice-next-lesson{font-size:14px!important;color:var(--taste-accent)!important}
+.novice-review{margin-top:16px}
+.novice-roles{display:grid;grid-template-columns:1fr auto 1fr;gap:16px;align-items:center;margin:24px 0}
+.novice-roles>div{display:flex;flex-direction:column;gap:12px;background:var(--taste-panel);border-radius:12px;padding:20px;font-size:14px}
+.novice-roles b,.novice-roles strong{font-weight:500;color:var(--taste-ink)}
+.novice-roles span{color:var(--taste-muted)}
+.novice-task-explanation{margin:16px 0;font-size:14px}
+.novice-page-help{margin-top:20px!important;padding-top:16px;border-top:1px solid var(--taste-line)}
+@media(max-width:700px){.novice-start{grid-template-columns:1fr;gap:16px;padding:8px 0 24px}.novice-start-action small{max-width:none}.novice-start-action{align-items:stretch}.novice-start-action button{width:100%}.novice-io,.novice-route-choice,.novice-roles{grid-template-columns:1fr}.novice-roles>span{text-align:center}.novice-parts>div{grid-template-columns:1fr;gap:6px}.novice-pipe-steps{display:grid;grid-template-columns:1fr;gap:8px}.novice-reading-outline{font-size:11px!important}.novice-remedy{padding:16px}.novice-start ol{margin:0}.novice-start li{font-size:14px!important}}

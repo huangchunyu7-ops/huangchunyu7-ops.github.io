@@ -40,6 +40,10 @@ function opsNextCourse(){return opsOrderedCourses().find(c=>!hubState.completed.
 let opsRouteStage='environment',opsRouteQuery='';
 try{const s=JSON.parse(localStorage.getItem('learning-ops-route-v1'));if(opsStages.some(x=>x.id===s?.stage)||s?.stage==='all')opsRouteStage=s.stage;}catch{}
 function opsSaveRoute(){try{localStorage.setItem('learning-ops-route-v1',JSON.stringify({stage:opsRouteStage}));}catch{}}
+// Numbering and the explicit Next button follow the same recommended order.
+const opsPriorFollowing=hubFollowingIndex,opsPriorPosition=hubPosition;
+hubFollowingIndex=function(track,i){if(track!=='opswork')return opsPriorFollowing(track,i);const ordered=opsOrderedCourses(),next=ordered[ordered.indexOf(hubCurriculum.opswork[i])+1];return next?hubCurriculum.opswork.indexOf(next):null;};
+hubPosition=function(track,i){return track==='opswork'?opsOrderedCourses().indexOf(hubCurriculum.opswork[i])+1:opsPriorPosition(track,i);};
 const opsPriorUnlocked=hubUnlocked;
 hubUnlocked=function(track,i){return track==='opswork'?Number.isInteger(i)&&i>=0&&i<hubCurriculum.opswork.length:opsPriorUnlocked(track,i);};
 const opsPriorNextIndex=hubNextIndex;
@@ -63,11 +67,11 @@ routeKey=function(){return view==='subject'&&hubSubject==='ops'?'ops-path:'+opsR
 const opsPriorSourceNotes=sourceNotes;
 sourceNotes=function(c){let html=opsPriorSourceNotes(c);if(c.videoReference){const r=opsVideoReferences.find(x=>x.id===c.videoReference.video);if(r)html=html.replace('</details>',`<p>目录参考：Linux运维工程师-小程 / ${r.name}。本站讲解、示例与练习为原创；这里只核对了公开分集目录，未复制配套课件。以下分集是关联基础；本站的进阶补充不代表视频已完整讲述。</p>${c.videoReference.parts.map(p=>`<p><a href="https://www.bilibili.com/video/${r.bv}/?p=${p}" target="_blank" rel="noopener noreferrer">P${p} · ${esc(opsVideoPartTitles[r.bv]?.[p]||'查看关联基础视频')}</a></p>`).join('')}</details>`);}return html;};
 const opsPriorCourseHTML=hubCourseHTML;
-hubCourseHTML=function(){let html=opsPriorCourseHTML();if(hubTrack!=='opswork')return html;const c=activeHubLesson(),stage=opsStages.find(s=>s.id===opsStageOf(c));html=html.replace(`关卡 ${hubLesson+1}/${hubCurriculum.opswork.length} · ${c.section}`,`${esc(stage.name)} · ${c.tasks.every(t=>t.type==='choice')?'场景判断':'教学模拟'}`);if(c.opsStage&&hubPhase==='practice'){const t=c.tasks[hubAttempt.step];if(t)html=html.replace(`<p>${esc(t.explanation)}</p>`,`<p>先回想本课示例的对象与输出，选择后验证。验证通过仍需手动确认。</p>`);html=html.replace('执行 / 验证本步','检查本步判断');}return html;};
+hubCourseHTML=function(){let html=opsPriorCourseHTML();if(hubTrack!=='opswork')return html;const c=activeHubLesson(),stage=opsStages.find(s=>s.id===opsStageOf(c));html=html.replace(`关卡 ${hubPosition(hubTrack,hubLesson)}/${hubCurriculum.opswork.length} · ${c.section}`,`关卡 ${hubPosition(hubTrack,hubLesson)}/${hubCurriculum.opswork.length} · ${esc(stage.name)} · ${c.tasks.every(t=>t.type==='choice')?'场景判断':'教学模拟'}`);if(c.opsStage&&hubPhase==='practice'){const t=c.tasks[hubAttempt.step];if(t)html=html.replace(`<p>${esc(t.explanation)}</p>`,`<p>先回想本课示例的对象与输出，选择后验证。验证通过仍需手动确认。</p>`);html=html.replace('执行 / 验证本步','检查本步判断');}return html;};
 const opsPriorOpenLesson=openHubLesson;
 openHubLesson=function(track,i){if(track==='opswork'&&hubCurriculum.opswork[i]){opsRouteStage=opsStageOf(hubCurriculum.opswork[i]);opsRouteQuery='';opsSaveRoute();}return opsPriorOpenLesson(track,i);};
-// Capture only the final Next action so the physical array can retain old IDs/order.
-document.addEventListener('click',e=>{const next=e.target.closest('[data-hub="next"]');if(next&&!next.disabled&&hubTrack==='opswork'){e.preventDefault();e.stopImmediatePropagation();if(!hubPassed())return;const ordered=opsOrderedCourses(),i=ordered.indexOf(activeHubLesson());if(i+1<ordered.length)openHubLesson('opswork',hubCurriculum.opswork.indexOf(ordered[i+1]));else{view='subject';render();}return;}const b=e.target.closest('[data-ops-stage]');if(b){opsRouteStage=b.dataset.opsStage;opsRouteQuery='';opsSaveRoute();render();document.querySelector('.ops-path-courses')?.scrollIntoView({block:'start'});}if(e.target.closest('[data-ops-clear]')){opsRouteQuery='';render();}},true);
+// Stage navigation; lesson progression is shared with hubFollowingIndex.
+document.addEventListener('click',e=>{const b=e.target.closest('[data-ops-stage]');if(b){opsRouteStage=b.dataset.opsStage;opsRouteQuery='';opsSaveRoute();render();document.querySelector('.ops-path-courses')?.scrollIntoView({block:'start'});}if(e.target.closest('[data-ops-clear]')){opsRouteQuery='';render();}},true);
 document.addEventListener('change',e=>{if(e.target.id==='ops-stage'){opsRouteStage=e.target.value;opsRouteQuery='';opsSaveRoute();render();}});
 document.addEventListener('submit',e=>{if(e.target.id==='ops-search-form'){e.preventDefault();opsRouteQuery=document.getElementById('ops-search').value.slice(0,100);render();}});
 hubSubjects.ops.description='练习环境 → 常用命令 → 系统与网络 → 数据库 → Docker → Kubernetes → 自动化、监控与发布验收。';
