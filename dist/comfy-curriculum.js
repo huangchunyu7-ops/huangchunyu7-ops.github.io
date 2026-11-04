@@ -421,10 +421,12 @@ cfLessonRows.push(...[
  ]
 ]);
 
+cfLessonRows.push(...cfNovelRows);
+
 hubSubjects.comfy={name:'ComfyUI 生图与视频',mark:'图',tag:'从节点到作品',description:'先理解节点、数据类型与连线，再读真实生图、生视频和 H3 接续工作流。',tone:'teal'};
 hubCurriculum.comfy=cfLessonRows.map(([id,stage,title,goal,before,explain,example,task,quiz,sample,source],i)=>({
  id:'comfy-'+id,section:stage,title,summary:goal,body:[explain],examples:[{text:example,meaning:goal}],related:before,diagram:'',source:cfSources[source],novice:{goal,before,review:1},
- teachingPages:[P('学完这一课，能解决什么问题？',[goal,'先备知识：'+before]),P('把节点职责与数据说清楚',[explain]),{...P('看一段完整的输入输出关系',[goal],example),comfySample:sample},P('接下来怎样独立验证？',['先用自己的话说出：上游交来的是什么、当前节点做什么、下游为什么需要这个结果。','完成本课判断后，再用另一道小测检验。节点图演示和参数计算不会替你通过课程。'])],
+ teachingPages:[P('学完这一课，能解决什么问题？',[goal,'先备知识：'+before]),P(sample?'把节点职责与数据说清楚':'把创作目标与用法说清楚',[explain]),{...P(sample?'看一段完整的输入输出关系':'拆解一个完整写作示例',[goal],example),comfySample:sample},P('接下来怎样独立验证？',[sample?'先用自己的话说出：上游交来的是什么、当前节点做什么、下游为什么需要这个结果。':'先写下想要的可观察结果、实际生成端的版本与本轮只改变的变量。','完成本课判断后，再用另一道小测检验。节点图演示和参数计算不会替你通过课程。'])],
  tasks:[choiceTask(task[0],task[1],task[2],task[3],i)],quiz:choiceTask(quiz[0],quiz[1],quiz[2],quiz[3],i+1),comfySample:sample
 }));
 Object.assign(beginnerTerms,{'LATENT':cfTypes.LATENT[1],'CONDITIONING':cfTypes.CONDITIONING[1],'帧率':'每秒播放或处理的帧数，单位 fps。改变封装帧率与生成新帧是两回事。','潜空间':'模型用于处理图像、音频或视频的内部表示空间，通常不能直接当像素观看。','子图':'把一组节点封装为一个具有输入和输出的方块；展开后仍能看到内部依赖。'});

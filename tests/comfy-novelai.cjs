@@ -1,0 +1,24 @@
+const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path'),vm=require('node:vm');
+const {harness}=require('./hub.cjs');
+(async()=>{
+ const h=harness(),{q,change,document}=h;
+ vm.runInContext('function learningRouteSnapshot(){return {view};} async function restoreLearningRoute(r){view=r.view;render();}',h.ctx);
+ vm.runInContext(fs.readFileSync(path.join(__dirname,'../dist/comfy-ui.js'),'utf8'),h.ctx);
+ q("cfOpen('novelai')");assert(document.querySelector('h1').textContent.includes('NovelAI'));
+ assert.equal(document.querySelectorAll('[data-cf-nai]').length,4);
+ assert(document.querySelector('.cf-heading button').textContent.includes('服务、模型'));
+ const before=q('cfNovelPrompt()');assert(before.includes('soft morning light'));
+ await change({id:'cf-nai-light',dataset:{cfNai:'light'},value:'rain'});
+ const after=document.getElementById('cf-nai-prompt').value;
+ assert(after.includes('rainy night'));assert(!after.includes('soft morning light'));
+ assert(after.includes('unopened letter'));assert(after.includes('quiet railway station'));
+ await change({dataset:{cfNai:'light'},value:'invalid'});assert.equal(q('cfNovelPrompt()'),after);
+ await change({dataset:{cfNai:'__proto__'},value:'invalid'});assert.equal(q('cfNovelPrompt()'),after);
+ q('globalThis.naiSaved=learningRouteSnapshot();cfNovelState.light="morning"');
+ await q("restoreLearningRoute({...naiSaved,view:'subject',subject:'comfy'})");assert.equal(q('cfNovelState.light'),'rain');
+ assert.equal(q("hubCurriculum.comfy.filter(c=>c.section==='NovelAI 提示词').length"),8);
+ assert(q("hubCurriculum.comfy.filter(c=>c.section==='NovelAI 提示词').every(c=>c.comfySample===null&&c.source[1].startsWith('https://docs.novelai.net/'))"));
+ q("openHubLesson('comfy',35);readingPage=2;render()");
+ assert(!document.querySelector('[data-cf-example]'));assert(!document.querySelector('.cf-lesson-photo'));
+ console.log('NovelAI: live single-group editing, invalid selection handling, route restore, 8 sourced lessons and no misleading node-workflow links passed.');
+})().catch(e=>{console.error(e);process.exitCode=1;});
