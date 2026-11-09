@@ -1,0 +1,15 @@
+const groups=[{id:'story',title:'01 / 故事与分镜',intro:'先想清楚观众会看到什么，再决定画面怎么做。',items:[
+['编剧入门','把抽象情绪改成可拍摄的行动。','先回答谁、想做什么、遇到了什么阻碍、结果发生了什么。一个短片可以只围绕一个小变化。','例：女孩想留住即将离开的朋友，却只来得及把伞递出去。','用三句话写出处境、行动和结果；删去无法直接看见的心理描述。','https://www.bilibili.com/toy/screenplay-handbook/index.html'],
+['镜头语言','用景别和机位决定观众先看到什么。','远景交代空间，中景观察动作，近景突出表情或物件。平视、俯视和仰视改变观看角度，具体感受仍取决于上下文。','例：先用远景交代空房，再切到手里的钥匙特写。','把同一动作写成远景、中景、特写三种镜头，说明每一镜提供了什么信息。','https://www.bilibili.com/toy/film-shot-handbook/index.html'],
+['分镜与接片','让相邻镜头的人、物和动作接得上。','记录人物朝向、道具在哪只手、动作起止位置和视线方向。切镜头时让观众明白空间关系；有意跳接也可以，但要服务表达。','例：镜头一右手握门把，镜头二仍从同一动作继续。','任选两个镜头，画出人物与门的位置，核对手、视线与动作的连续性。','https://www.bilibili.com/toy/jiepiantai/index.html'] ]},
+{id:'image',title:'02 / 画面与提示词',intro:'观察一张图的结构，将视觉目标写得清楚。',items:[
+['画面观察','从主体、空间、光线和色彩拆解参考图。','先描述能看到的事实：人物位置、前中后景、明暗分布；再把主观感受转成可观察目标。单张静帧不能证明原片实际运镜。','例：人物站在画面左侧，窗框在前景，右侧保留空地，侧窗光从右侧照入。','找一张喜欢的画面，用主体位置、层次、主光方向各写一句。','https://www.bilibili.com/toy/kakaxi/index.html'],
+['提示词结构','按主体、动作、场景、构图和光线组织描述。','先写必要信息，再添加风格；把身份和衣着保持稳定，一次只改一项，比较结果。不同模型对自然语言和标签的响应不同。','例：短黑发女孩站在旧车站，右手握伞，侧身看向远处；中景，阴天柔光，右侧留白。','用同一主体分别写“安静等待”和“匆忙赶车”，比较动作和场景如何改变。','https://www.bilibili.com/toy/aishipin/index.html'],
+['Midjourney 参数认识','把参数当作影响生成的控制项，逐项比较。','常见控制思路包括画幅比例、随机变化和风格影响；具体参数、范围和版本可能更新，使用前查看官方文档。','例：固定主体提示词，分别尝试横幅和竖幅，比较画面中人物与背景的占比。','保持提示词不变，只修改画幅，记录构图和主体完整度。','https://www.bilibili.com/toy/MJGL/index.html'] ]},
+{id:'motion',title:'03 / 镜头与运动',intro:'把起点、动作和结束状态说清楚。',items:[
+['AI 视频镜头','区分主体运动与摄影机运动。','人物走近是主体运动；摄影机横移会改变前后物体的相对位置；原地转向则改变观察方向。视频模型未必精确执行这些要求。','例：镜头固定，女孩抬头看向窗外，头发轻微摆动。','先做固定镜头版本，再单独增加轻微横移，检查主体与背景是否稳定。','https://www.bilibili.com/toy/aijingtou/index.html'],
+['曲线与运动节奏','曲线可以描述一个数值随时间如何变化。','位置曲线的斜率对应变化速度：斜率较陡代表变化较快。先确认工具中关键帧的时间和数值，再调整缓入缓出。','例：镜头缓慢启动、匀速前进、最后慢慢停下。','为 0、1、2 秒设三个位置关键帧，对比线性变化和缓入缓出。','https://www.bilibili.com/toy/quxian/index.html'],
+['灯光与氛围','先确定光从哪里来，再考虑色调和强弱。','主光塑造主体，补光减少暗部反差，轮廓光帮助主体与背景分离；具体布光不必每次都使用三盏灯。','例：窗户在画面右侧，柔和侧光照亮半张脸，背景比人物略暗。','固定人物与场景，只改光源方向：正面、侧面和背面各试一版。','https://www.bilibili.com/toy/dengguangzu/index.html'] ]},
+{id:'post',title:'04 / 声音与后期',intro:'让声音和画面共同服务情绪与叙事。',items:[
+['AI 音乐写法','从情绪、声音和用途开始，而非先堆风格词。','先判断歌曲还是纯音乐，再描述情绪、节奏、乐器和使用场景。不同平台的输入格式与许可条件不同，应查看各自说明。','例：纯音乐；安静而略带期待；慢速钢琴和柔和弦乐；适合作为雨后重逢场景的背景。','为同一镜头写两版音乐需求：温暖重逢与紧张等待，比较节奏和乐器。','https://www.bilibili.com/toy/aiyinyue/index.html'] ]}];
+const esc=s=>s.replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));let n=0;document.getElementById('cards').innerHTML=groups.map(g=>`<section id="${g.id}" class="module-section"><h2>${esc(g.title)}</h2><p>${esc(g.intro)}</p><div class="module-grid">${g.items.map(x=>`<article class="module"><span class="number">FIELD NOTE / ${String(++n).padStart(2,'0')}</span><h3>${esc(x[0])}</h3><p>${esc(x[1])}</p><details><summary>展开讲解与练习</summary><p>${esc(x[2])}</p><p class="example-text">${esc(x[3])}</p><p class="practice"><strong>动手试试：</strong>${esc(x[4])}</p></details><a class="source" href="${esc(x[5])}" target="_blank" rel="noopener noreferrer">查看参考资料 ↗</a></article>`).join('')}</div></section>`).join('');
